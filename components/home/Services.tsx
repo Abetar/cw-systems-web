@@ -25,23 +25,23 @@ const SERVICES = [
 
 export default function Services() {
   const reduceMotion = useReducedMotion();
-  const fadeUp = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 12 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
-  };
-  const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+
+  const baseInitial = { opacity: 0, y: reduceMotion ? 0 : 12 };
+  const baseAnimate = { opacity: 1, y: 0 };
+  const vp = { once: true, amount: 0.2 as const };
 
   return (
     <section className="bg-white">
       <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-18">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={stagger}
-          className="space-y-10"
-        >
-          <motion.div variants={fadeUp} className="space-y-3">
+        <div className="space-y-10">
+          {/* Intro */}
+          <motion.div
+            initial={baseInitial}
+            whileInView={baseAnimate}
+            viewport={vp}
+            transition={{ duration: 0.55 }}
+            className="space-y-3"
+          >
             <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
               Servicios en aluminio y vidrio para obra
             </h2>
@@ -50,20 +50,30 @@ export default function Services() {
             </p>
           </motion.div>
 
-          <motion.div variants={stagger} className="grid gap-4 md:grid-cols-2">
-            {SERVICES.map((s) => (
+          {/* Cards */}
+          <div className="grid gap-4 md:grid-cols-2">
+            {SERVICES.map((s, idx) => (
               <motion.div
                 key={s.title}
-                variants={fadeUp}
+                initial={baseInitial}
+                whileInView={baseAnimate}
+                viewport={vp}
+                transition={{ duration: 0.55, delay: 0.06 * idx }}
                 className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
               >
                 <p className="text-sm font-semibold text-slate-900">{s.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.desc}</p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeUp}>
+          {/* CTA */}
+          <motion.div
+            initial={baseInitial}
+            whileInView={baseAnimate}
+            viewport={vp}
+            transition={{ duration: 0.55, delay: 0.08 }}
+          >
             <Link
               href="/servicios"
               className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
@@ -71,7 +81,7 @@ export default function Services() {
               Ver todos los servicios
             </Link>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

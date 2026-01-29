@@ -7,10 +7,10 @@ import { site } from "@/config/site";
 
 export default function FinalCta() {
   const reduceMotion = useReducedMotion();
-  const fadeUp = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 10 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-  };
+
+  const baseInitial = { opacity: 0, y: reduceMotion ? 0 : 10 };
+  const baseAnimate = { opacity: 1, y: 0 };
+  const baseViewport = { once: true, amount: 0.3 as const };
 
   return (
     <section className="bg-slate-900">
@@ -18,26 +18,44 @@ export default function FinalCta() {
         <motion.div
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={baseViewport}
           className="space-y-5"
         >
           <motion.h2
-            variants={fadeUp}
+            initial={baseInitial}
+            whileInView={baseAnimate}
+            viewport={baseViewport}
+            transition={{ duration: 0.5 }}
             className="text-balance text-2xl font-semibold tracking-tight text-white md:text-3xl"
           >
             ¿Necesitas cotizar aluminio o vidrio para tu proyecto?
           </motion.h2>
-          <motion.p variants={fadeUp} className="max-w-3xl text-pretty text-slate-200">
+
+          <motion.p
+            initial={baseInitial}
+            whileInView={baseAnimate}
+            viewport={baseViewport}
+            transition={{ duration: 0.5, delay: 0.06 }}
+            className="max-w-3xl text-pretty text-slate-200"
+          >
             Atención a constructoras y contratistas en {site.city} y {site.state}. Cuéntanos lo
             esencial y te respondemos con claridad.
           </motion.p>
-          <motion.div variants={fadeUp} className="flex flex-col gap-3 sm:flex-row">
+
+          <motion.div
+            initial={baseInitial}
+            whileInView={baseAnimate}
+            viewport={baseViewport}
+            transition={{ duration: 0.5, delay: 0.12 }}
+            className="flex flex-col gap-3 sm:flex-row"
+          >
             <Link
               href="/contacto"
               className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
             >
               Ir a contacto
             </Link>
+
             <Link
               href="/servicios"
               className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-transparent px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"

@@ -16,7 +16,6 @@ function buildWhatsAppLink(phone: string, text: string) {
 }
 
 function toTel(phone: string) {
-  // "T. 52 (81) 1234-2318" -> "+528112342318"
   const digits = phone.replace(/[^\d]/g, "");
   return digits.startsWith("52") ? `+${digits}` : `+52${digits}`;
 }
@@ -24,17 +23,12 @@ function toTel(phone: string) {
 export default function ContactoClient() {
   const reduceMotion = useReducedMotion();
 
-  const fadeUp = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 12 },
-    show: (delay = 0) => ({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.55, ease: "easeOut", delay },
-    }),
-  };
+  const anim = (delay = 0) => ({
+    initial: { opacity: 0, y: reduceMotion ? 0 : 12 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.55, delay },
+  });
 
-  // 🔽 Datos "tal cual" del sitio actual
-  // (puedes moverlos luego a site.ts si quieres)
   const CONTACT = {
     email: "info@cwsystems.com.mx",
     phoneDisplay: "T. 52 (81) 1234-2318",
@@ -54,7 +48,7 @@ export default function ContactoClient() {
     mensaje: "",
   });
 
-  const whatsappTo = site.contact.whatsapp?.trim(); // opcional si lo configuras
+  const whatsappTo = site.contact.whatsapp?.trim(); // opcional
   const emailTo = CONTACT.email;
 
   const whatsappPrefill = useMemo(() => {
@@ -95,40 +89,44 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
       {/* HERO */}
       <section className="border-b border-slate-200 bg-white">
         <Container>
-          <motion.div initial="hidden" animate="show" className="py-14 md:py-18">
+          <div className="py-14 md:py-18">
             <motion.p
-              variants={fadeUp}
+              {...anim(0)}
               className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600"
             >
               Contacto • {site.city}, {site.state}
             </motion.p>
 
             <motion.h1
-              variants={fadeUp}
+              {...anim(0.05)}
               className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl"
             >
               Contacto y cotización
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="mt-4 max-w-3xl text-pretty text-slate-600 md:text-lg">
-              Envíanos los detalles del proyecto y te respondemos con claridad.
-              Atención a constructoras y contratistas en {site.city}, {site.state}.
+            <motion.p
+              {...anim(0.1)}
+              className="mt-4 max-w-3xl text-pretty text-slate-600 md:text-lg"
+            >
+              Envíanos los detalles del proyecto y te respondemos con claridad. Atención a constructoras y
+              contratistas en {site.city}, {site.state}.
             </motion.p>
-          </motion.div>
+          </div>
         </Container>
       </section>
 
       {/* CONTENT */}
       <section className="bg-white">
         <Container>
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            className="grid gap-6 py-14 md:grid-cols-2 md:py-18"
-          >
+          <div className="grid gap-6 py-14 md:grid-cols-2 md:py-18">
             {/* Form */}
-            <motion.div variants={fadeUp} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <motion.div
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.55 }}
+              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            >
               <h2 className="text-base font-semibold text-slate-900">Solicita una cotización</h2>
               <p className="mt-1 text-sm text-slate-600">Campos mínimos: Nombre, Teléfono y Mensaje.</p>
 
@@ -216,8 +214,14 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
               </form>
             </motion.div>
 
-            {/* Contacto directo (lo que ellos ya tenían) */}
-            <motion.aside variants={fadeUp} className="space-y-4">
+            {/* Contacto directo */}
+            <motion.aside
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.55, delay: 0.05 }}
+              className="space-y-4"
+            >
               <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
                 <h3 className="text-sm font-semibold text-slate-900">Contacto directo</h3>
 
@@ -278,7 +282,7 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
                 <ul className="mt-3 grid gap-2 text-sm text-slate-700">
                   {[
                     "Tipo de obra (residencial / comercial / industrial)",
-                    "Ubicación (Monterrey / Área Metropolitana / N.L.)",
+                    `Ubicación (${site.city} / Área Metropolitana / ${site.state})`,
                     "Qué necesitas (aluminio / vidrio)",
                     "Fechas o urgencia",
                   ].map((x) => (
@@ -290,7 +294,7 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
                 </ul>
               </div>
             </motion.aside>
-          </motion.div>
+          </div>
         </Container>
       </section>
     </div>

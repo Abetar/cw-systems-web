@@ -14,23 +14,23 @@ const SECTORS = [
 
 export default function Sectors() {
   const reduceMotion = useReducedMotion();
-  const fadeUp = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 12 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
-  };
-  const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+
+  const baseInitial = { opacity: 0, y: reduceMotion ? 0 : 12 };
+  const baseAnimate = { opacity: 1, y: 0 };
+  const vp = { once: true, amount: 0.2 as const };
 
   return (
     <section className="border-y border-slate-200 bg-slate-50">
       <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-18">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={stagger}
-          className="space-y-10"
-        >
-          <motion.div variants={fadeUp} className="space-y-3">
+        <div className="space-y-10">
+          {/* Intro */}
+          <motion.div
+            initial={baseInitial}
+            whileInView={baseAnimate}
+            viewport={vp}
+            transition={{ duration: 0.55 }}
+            className="space-y-3"
+          >
             <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
               Para quién trabajamos
             </h2>
@@ -39,19 +39,23 @@ export default function Sectors() {
             </p>
           </motion.div>
 
-          <motion.div variants={stagger} className="grid gap-4 md:grid-cols-3">
-            {SECTORS.map((x) => (
+          {/* Cards */}
+          <div className="grid gap-4 md:grid-cols-3">
+            {SECTORS.map((x, idx) => (
               <motion.div
                 key={x.title}
-                variants={fadeUp}
+                initial={baseInitial}
+                whileInView={baseAnimate}
+                viewport={vp}
+                transition={{ duration: 0.55, delay: 0.06 * idx }}
                 className="rounded-2xl border border-slate-200 bg-white p-6"
               >
                 <p className="text-sm font-semibold text-slate-900">{x.title}</p>
                 <p className="mt-2 text-sm text-slate-600">{x.desc}</p>
               </motion.div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
