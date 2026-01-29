@@ -50,8 +50,8 @@ export default function Header() {
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="grid h-9 w-9 place-items-center rounded-xl border border-slate-200 bg-white">
-            <img src="/cws-logo.png" alt={site.name} className="h-6 w-6" />
+          <div className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white">
+            <img src="/cws-logo.png" alt={site.name} className="h-7 w-7" />
           </div>
           <div className="leading-tight">
             <p className="text-sm font-semibold text-slate-900">{site.name}</p>

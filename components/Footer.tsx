@@ -11,8 +11,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <div className="grid h-9 w-9 place-items-center rounded-xl border border-slate-200 bg-white">
-                <span className="text-sm font-semibold text-slate-900">CW</span>
+              <div className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white">
+                <img src="/cws-logo.png" alt={site.name} className="h-7 w-7" />
               </div>
               <div>
                 <p className="text-sm font-semibold text-slate-900">
