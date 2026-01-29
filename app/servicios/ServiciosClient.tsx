@@ -46,54 +46,53 @@ const ENGINEERING_PROJECTS = [
 export default function ServiciosClient() {
   const reduceMotion = useReducedMotion();
 
-  const fadeUp = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 12 },
-    show: (delay = 0) => ({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.55, ease: "easeOut", delay },
-    }),
-  };
+  const baseInitial = { opacity: 0, y: reduceMotion ? 0 : 12 };
+  const baseAnimate = { opacity: 1, y: 0 };
+  const heroT = (delay = 0) => ({ duration: 0.55, delay });
 
-  const stagger = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.08 } },
-  };
+  const vp = { once: true, amount: 0.2 as const };
+  const inViewT = (delay = 0) => ({ duration: 0.55, delay });
 
   return (
     <div className="bg-white">
       {/* HERO */}
       <section className="border-b border-slate-200 bg-white">
         <Container>
-          <motion.div
-            initial="hidden"
-            animate="show"
-            variants={stagger}
-            className="py-14 md:py-18"
-          >
+          <div className="py-14 md:py-18">
             <motion.p
-              variants={fadeUp}
+              initial={baseInitial}
+              animate={baseAnimate}
+              transition={heroT(0)}
               className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600"
             >
               {site.city}, {site.state} • Servicios
             </motion.p>
 
             <motion.h1
-              variants={fadeUp}
+              initial={baseInitial}
+              animate={baseAnimate}
+              transition={heroT(0.06)}
               className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl"
             >
               Servicios para proyectos de fachada, ejecución e ingenierías
             </motion.h1>
 
             <motion.p
-              variants={fadeUp}
+              initial={baseInitial}
+              animate={baseAnimate}
+              transition={heroT(0.12)}
               className="mt-4 max-w-3xl text-pretty text-base leading-relaxed text-slate-600 md:text-lg"
             >
               Estructuramos soluciones con enfoque técnico y seguimiento para que constructoras y
               contratistas avancen con claridad.
             </motion.p>
 
-            <motion.div variants={fadeUp} className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <motion.div
+              initial={baseInitial}
+              animate={baseAnimate}
+              transition={heroT(0.18)}
+              className="mt-7 flex flex-col gap-3 sm:flex-row"
+            >
               <Link
                 href="/contacto"
                 className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
@@ -107,21 +106,21 @@ export default function ServiciosClient() {
                 Ver galería
               </Link>
             </motion.div>
-          </motion.div>
+          </div>
         </Container>
       </section>
 
       {/* PROYECTO EJECUTIVO DE FACHADA */}
       <section className="bg-white">
         <Container>
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-            className="py-14 md:py-18"
-          >
-            <motion.div variants={fadeUp} className="mb-8">
+          <div className="py-14 md:py-18">
+            <motion.div
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={inViewT(0)}
+              className="mb-8"
+            >
               <p className="text-xs font-semibold tracking-[0.25em] text-slate-500">
                 PROYECTO EJECUTIVO DE FACHADA
               </p>
@@ -137,11 +136,13 @@ export default function ServiciosClient() {
             <div className="grid gap-6 md:grid-cols-12 md:items-start">
               {/* Image */}
               <motion.div
-                variants={fadeUp}
+                initial={baseInitial}
+                whileInView={baseAnimate}
+                viewport={vp}
+                transition={inViewT(0.06)}
                 className="md:col-span-5"
               >
                 <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-                  {/* Coloca una imagen real en /public/services/fachada.jpg */}
                   <img
                     src="/services/fachada.jpg"
                     alt="Proyecto ejecutivo de fachada"
@@ -154,7 +155,13 @@ export default function ServiciosClient() {
               </motion.div>
 
               {/* Content */}
-              <motion.div variants={fadeUp} className="space-y-4 md:col-span-7">
+              <motion.div
+                initial={baseInitial}
+                whileInView={baseAnimate}
+                viewport={vp}
+                transition={inViewT(0.12)}
+                className="space-y-4 md:col-span-7"
+              >
                 <div className="rounded-2xl border border-slate-200 bg-white p-6">
                   <h3 className="text-sm font-semibold text-slate-900">Planeación y cálculo</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">
@@ -191,26 +198,24 @@ export default function ServiciosClient() {
                 </div>
               </motion.div>
             </div>
-          </motion.div>
+          </div>
         </Container>
       </section>
 
       {/* EJECUCIÓN */}
       <section className="border-y border-slate-200 bg-slate-50">
         <Container>
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-            className="py-14 md:py-18"
-          >
+          <div className="py-14 md:py-18">
             <div className="grid gap-6 md:grid-cols-12 md:items-center">
               {/* Content (left) */}
-              <motion.div variants={fadeUp} className="md:col-span-7">
-                <p className="text-xs font-semibold tracking-[0.25em] text-slate-500">
-                  EJECUCIÓN
-                </p>
+              <motion.div
+                initial={baseInitial}
+                whileInView={baseAnimate}
+                viewport={vp}
+                transition={inViewT(0)}
+                className="md:col-span-7"
+              >
+                <p className="text-xs font-semibold tracking-[0.25em] text-slate-500">EJECUCIÓN</p>
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
                   Calidad en fabricación e instalación
                 </h2>
@@ -237,9 +242,14 @@ export default function ServiciosClient() {
               </motion.div>
 
               {/* Image (right) */}
-              <motion.div variants={fadeUp} className="md:col-span-5">
+              <motion.div
+                initial={baseInitial}
+                whileInView={baseAnimate}
+                viewport={vp}
+                transition={inViewT(0.06)}
+                className="md:col-span-5"
+              >
                 <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                  {/* Coloca una imagen real en /public/services/ejecucion.jpg */}
                   <img
                     src="/services/ejecucion.jpg"
                     alt="Ejecución y fabricación"
@@ -251,24 +261,22 @@ export default function ServiciosClient() {
                 </p>
               </motion.div>
             </div>
-          </motion.div>
+          </div>
         </Container>
       </section>
 
       {/* INGENIERÍAS */}
       <section className="bg-white">
         <Container>
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-            className="py-14 md:py-18"
-          >
-            <motion.div variants={fadeUp} className="mb-8">
-              <p className="text-xs font-semibold tracking-[0.25em] text-slate-500">
-                INGENIERÍAS
-              </p>
+          <div className="py-14 md:py-18">
+            <motion.div
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={inViewT(0)}
+              className="mb-8"
+            >
+              <p className="text-xs font-semibold tracking-[0.25em] text-slate-500">INGENIERÍAS</p>
               <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
                 Proyectos y referencias
               </h2>
@@ -278,7 +286,13 @@ export default function ServiciosClient() {
               </p>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="rounded-2xl border border-slate-200 bg-white p-6">
+            <motion.div
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={inViewT(0.06)}
+              className="rounded-2xl border border-slate-200 bg-white p-6"
+            >
               <ul className="grid gap-x-8 gap-y-2 text-sm text-slate-700 md:grid-cols-3">
                 {ENGINEERING_PROJECTS.map((name) => (
                   <li key={name} className="flex gap-2">
@@ -289,7 +303,13 @@ export default function ServiciosClient() {
               </ul>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <motion.div
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={inViewT(0.12)}
+              className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6"
+            >
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-slate-900">
@@ -307,7 +327,7 @@ export default function ServiciosClient() {
                 </Link>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </Container>
       </section>
     </div>
