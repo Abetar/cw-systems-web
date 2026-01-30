@@ -16,10 +16,10 @@ export type SiteConfig = {
   country: string;
   serviceArea: string[];
 
-  // Contacto (puedes dejar vacío y completar después)
+  // Contacto
   contact: {
-    phone?: string;     // "+52..." recomendado
-    whatsapp?: string;  // "+52..." recomendado
+    phone?: string; // "+52..." recomendado
+    whatsapp?: string; // "+52..." recomendado
     email?: string;
   };
 
@@ -40,13 +40,13 @@ export type SiteConfig = {
     linkedin?: string;
   };
 
-  // Navegación (rutas confirmadas)
+  // Navegación
   nav: Array<{
     label: string;
     href: string;
   }>;
 
-  // SEO por página (titles/descriptions)
+  // SEO por página
   pages: Record<
     "home" | "empresa" | "servicios" | "galeria" | "respaldo" | "contacto",
     {
@@ -62,22 +62,23 @@ export const site: SiteConfig = {
   domain: "cwsystems.com.mx",
   url: "https://cwsystems.com.mx",
 
-  // Title base (se usa para <title> y social previews)
-  title: "CW Systems | Aluminio y vidrio para constructoras en Monterrey y Nuevo León",
+  // SEO base (institucional)
+  title: "CW Systems | Aluminio y vidrio para obra y fachada en Monterrey y Nuevo León",
   description:
-    "Proveedor de aluminio y vidrio para constructoras y contratistas en Monterrey y Nuevo León. Soluciones para proyectos residenciales, comerciales e industriales. Cotiza con nosotros.",
+    "Soluciones en aluminio y vidrio para constructoras y contratistas en Monterrey y Nuevo León. Revisión técnica, especificación y ejecución con seguimiento para proyectos de obra y fachada.",
   keywords: [
     "aluminio Monterrey",
     "vidrio Monterrey",
-    "proveedor de aluminio y vidrio",
-    "aluminio para constructoras",
-    "vidrio para constructoras",
+    "sistemas de aluminio Monterrey",
+    "vidrio para obra Nuevo León",
+    "aluminio para constructoras Monterrey",
+    "vidrio para constructoras Monterrey",
     "contratistas Monterrey",
+    "cancelería de aluminio Monterrey",
+    "fachadas de vidrio Monterrey",
+    "fachadas integrales Monterrey",
+    "proyectos de construcción Monterrey",
     "Nuevo León",
-    "vidrio templado Monterrey",
-    "cancelería de aluminio",
-    "fachadas de vidrio",
-    "proyectos de construcción",
   ],
 
   city: "Monterrey",
@@ -86,9 +87,9 @@ export const site: SiteConfig = {
   serviceArea: ["Monterrey", "Área Metropolitana", "Nuevo León"],
 
   contact: {
-    phone: "",     // Ej: "+528112345678"
-    whatsapp: "",  // Ej: "+528112345678"
-    email: "",     // Ej: "ventas@cwsystems.com.mx"
+    phone: "", // Ej: "+528112345678"
+    whatsapp: "", // Ej: "+528112345678"
+    email: "", // Ej: "contacto@cwsystems.com.mx"
   },
 
   address: {
@@ -116,34 +117,34 @@ export const site: SiteConfig = {
 
   pages: {
     home: {
-      title: "Aluminio y vidrio para constructoras en Monterrey y Nuevo León | CW Systems",
+      title: "Aluminio y vidrio para obra y fachada en Monterrey y Nuevo León | CW Systems",
       description:
-        "Rediseño y modernización de presencia digital. Proveedor de aluminio y vidrio para constructoras y contratistas en Monterrey y Nuevo León. Solicita una cotización.",
+        "Atención a constructoras y contratistas en Monterrey y Nuevo León. Soluciones en aluminio y vidrio con revisión técnica, alcances definidos y seguimiento para proyectos de obra.",
     },
     empresa: {
       title: "Empresa | CW Systems en Monterrey, Nuevo León",
       description:
-        "Conoce CW Systems: experiencia, enfoque y cobertura en Monterrey y Nuevo León como proveedor de aluminio y vidrio para proyectos de construcción.",
+        "Conoce CW Systems: enfoque B2B para obra y fachada, experiencia en coordinación y documentación técnica para sistemas de aluminio y vidrio en Monterrey y Nuevo León.",
     },
     servicios: {
-      title: "Servicios de aluminio y vidrio | CW Systems Monterrey",
+      title: "Capacidades en aluminio y vidrio | CW Systems Monterrey",
       description:
-        "Servicios y soluciones en aluminio y vidrio para constructoras y contratistas: proyectos residenciales, comerciales e industriales en Monterrey y Nuevo León.",
+        "Capacidades para proyectos de fachada, ejecución e ingenierías: revisión técnica, especificación y coordinación en obra para aluminio y vidrio en Monterrey y Nuevo León.",
     },
     galeria: {
       title: "Galería de proyectos | Aluminio y vidrio en Monterrey | CW Systems",
       description:
-        "Explora proyectos y trabajos realizados en aluminio y vidrio para obra residencial, comercial e industrial en Monterrey y Nuevo León.",
+        "Referencias de proyectos en aluminio y vidrio para obra y fachada. Proyectos atendidos en Monterrey y Nuevo León para constructoras y contratistas.",
     },
     respaldo: {
-      title: "Respaldo, calidad y garantía | CW Systems",
+      title: "Respaldo de proveedores | CW Systems",
       description:
-        "Respaldo y calidad en soluciones de aluminio y vidrio: proceso, atención y preguntas frecuentes para proyectos de construcción en Monterrey y Nuevo León.",
+        "Respaldo y compatibilidad para especificaciones de obra: proveedores del sector en aluminio y vidrio para proyectos de fachada y construcción en Monterrey y Nuevo León.",
     },
     contacto: {
-      title: "Contacto y cotización | CW Systems Monterrey",
+      title: "Contacto | Enviar proyecto | CW Systems Monterrey",
       description:
-        "Solicita una cotización. Contacto directo para constructoras y contratistas en Monterrey y Nuevo León. Respuesta rápida para tu proyecto.",
+        "Contacto directo para constructoras y contratistas en Monterrey y Nuevo León. Envía tu proyecto para revisión técnica y propuesta de alcances.",
     },
   },
 };

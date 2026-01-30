@@ -7,7 +7,21 @@ import { site } from "@/config/site";
 export const metadata: Metadata = {
   title: site.pages.galeria.title,
   description: site.pages.galeria.description,
-  alternates: { canonical: "/galeria" },
+  keywords: site.keywords,
+  alternates: { canonical: `${site.url}/galeria` },
+  openGraph: {
+    type: "website",
+    url: `${site.url}/galeria`,
+    siteName: site.name,
+    title: site.pages.galeria.title,
+    description: site.pages.galeria.description,
+    locale: "es_MX",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.pages.galeria.title,
+    description: site.pages.galeria.description,
+  },
 };
 
 export default function GaleriaPage() {
@@ -15,15 +29,14 @@ export default function GaleriaPage() {
     <div className="bg-white">
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
-          <p className="inline-flex rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600">
+          <p className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600">
             Proyectos • {site.city}, {site.state}
           </p>
           <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
             Galería de proyectos
           </h1>
           <p className="mt-4 max-w-3xl text-pretty text-slate-600 md:text-lg">
-            Referencias de proyectos y soluciones en aluminio y vidrio para
-            obra.
+            Referencias de proyectos y soluciones en aluminio y vidrio para obra y fachada.
           </p>
         </div>
       </section>
@@ -47,9 +60,8 @@ export default function GaleriaPage() {
                 </div>
 
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-slate-900">
-                    {p.title}
-                  </p>
+                  <p className="text-sm font-semibold text-slate-900">{p.title}</p>
+
                   {p.location ? (
                     <p className="mt-1 text-sm text-slate-600">{p.location}</p>
                   ) : (
@@ -59,7 +71,7 @@ export default function GaleriaPage() {
                   )}
 
                   <p className="mt-3 text-sm font-medium text-slate-700 transition group-hover:text-slate-900">
-                    Ver proyecto →
+                    Ver detalle →
                   </p>
                 </div>
               </Link>
@@ -67,10 +79,27 @@ export default function GaleriaPage() {
           </div>
 
           {galleryProjects.length === 0 ? (
-            <p className="mt-6 text-sm text-slate-600">
-              Aún no hay proyectos cargados.
-            </p>
-          ) : null}
+            <p className="mt-6 text-sm text-slate-600">Aún no hay proyectos cargados.</p>
+          ) : (
+            <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-slate-900">
+                    ¿Tienes un proyecto en planeación o ejecución?
+                  </p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    Comparte el alcance y la ubicación para revisión técnica y propuesta.
+                  </p>
+                </div>
+                <Link
+                  href="/contacto"
+                  className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                >
+                  Enviar proyecto
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </div>

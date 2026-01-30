@@ -7,7 +7,7 @@ import { site } from "@/config/site";
 
 type Params = { slug: string };
 
-// ✅ Esto está bien: SSG params
+// ✅ SSG params
 export function generateStaticParams() {
   return galleryProjects.map((p) => ({ slug: p.slug }));
 }
@@ -22,10 +22,41 @@ export async function generateMetadata({
   const project = galleryProjects.find((p) => p.slug === resolved.slug);
   if (!project) return {};
 
+  const title = `${project.title} | ${site.name}`;
+  const description =
+    project.location
+      ? `Proyecto: ${project.title} (${project.location}). Soluciones en aluminio y vidrio para obra y fachada.`
+      : `Proyecto: ${project.title}. Soluciones en aluminio y vidrio para obra y fachada en ${site.city}, ${site.state}.`;
+
+  const url = `${site.url}/galeria/${project.slug}`;
+
   return {
-    title: `${project.title} | ${site.name}`,
-    description: `Proyecto: ${project.title}. Soluciones en aluminio y vidrio en ${site.city}, ${site.state}.`,
-    alternates: { canonical: `/galeria/${project.slug}` },
+    title,
+    description,
+    keywords: site.keywords,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      siteName: site.name,
+      title,
+      description,
+      locale: "es_MX",
+      images: project.hero
+        ? [
+            {
+              url: project.hero,
+              alt: project.title,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: project.hero ? [project.hero] : undefined,
+    },
   };
 }
 
@@ -59,7 +90,11 @@ export default async function GaleriaDetallePage({
 
           {project.location ? (
             <p className="mt-2 text-sm text-slate-600">{project.location}</p>
-          ) : null}
+          ) : (
+            <p className="mt-2 text-sm text-slate-600">
+              {site.city}, {site.state}
+            </p>
+          )}
         </div>
       </section>
 
@@ -96,9 +131,7 @@ export default async function GaleriaDetallePage({
 
             <aside className="lg:col-span-4">
               <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <p className="text-sm font-semibold text-slate-900">
-                  Detalles del proyecto
-                </p>
+                <p className="text-sm font-semibold text-slate-900">Detalles del proyecto</p>
 
                 {project.bullets?.length ? (
                   <ul className="mt-4 grid gap-2 text-sm text-slate-700">
@@ -111,7 +144,7 @@ export default async function GaleriaDetallePage({
                   </ul>
                 ) : (
                   <p className="mt-3 text-sm text-slate-600">
-                    Solicita detalles técnicos y alcances por contacto.
+                    Solicita información técnica y alcances por contacto.
                   </p>
                 )}
 
@@ -119,12 +152,34 @@ export default async function GaleriaDetallePage({
                   href="/contacto"
                   className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
                 >
-                  Solicitar cotización
+                  Enviar proyecto
                 </Link>
 
                 <p className="mt-3 text-xs text-slate-500">
-                  * Información sujeta a especificación del proyecto.
+                  * Información referencial. Alcances sujetos a especificación del proyecto.
                 </p>
+              </div>
+
+              <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+                <p className="text-sm font-semibold text-slate-900">Cobertura</p>
+                <p className="mt-2 text-sm text-slate-600">
+                  {site.city} y {site.state}. Proyectos de obra y fachada en aluminio y vidrio.
+                </p>
+
+                <div className="mt-4 flex flex-col gap-3">
+                  <Link
+                    href="/servicios"
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                  >
+                    Ver capacidades
+                  </Link>
+                  <Link
+                    href="/respaldo"
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                  >
+                    Ver respaldo
+                  </Link>
+                </div>
               </div>
             </aside>
           </div>

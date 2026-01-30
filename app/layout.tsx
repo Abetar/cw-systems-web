@@ -25,9 +25,8 @@ export const metadata: Metadata = {
   creator: site.name,
   publisher: site.name,
 
-  alternates: {
-    canonical: "/",
-  },
+  // ✅ Importante: no fijamos canonical global aquí.
+  // Cada page ya define su canonical absoluto (mejor para evitar señales mixtas).
 
   openGraph: {
     type: "website",
@@ -79,7 +78,8 @@ function buildJsonLd() {
 
   const jsonLd: Record<string, any> = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    // ✅ Más específico para industria construcción sin prometer cosas raras
+    "@type": "HomeAndConstructionBusiness",
     name: site.legalName || site.name,
     url: site.url,
     areaServed: site.serviceArea.map((a) => ({

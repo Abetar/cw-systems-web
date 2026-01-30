@@ -65,7 +65,7 @@ export default function ServiciosClient() {
               transition={heroT(0)}
               className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600"
             >
-              {site.city}, {site.state} • Servicios
+              {site.city}, {site.state} • Capacidades
             </motion.p>
 
             <motion.h1
@@ -74,7 +74,7 @@ export default function ServiciosClient() {
               transition={heroT(0.06)}
               className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl"
             >
-              Servicios para proyectos de fachada, ejecución e ingenierías
+              Capacidades para proyectos de fachada, ejecución e ingenierías
             </motion.h1>
 
             <motion.p
@@ -83,8 +83,8 @@ export default function ServiciosClient() {
               transition={heroT(0.12)}
               className="mt-4 max-w-3xl text-pretty text-base leading-relaxed text-slate-600 md:text-lg"
             >
-              Estructuramos soluciones con enfoque técnico y seguimiento para que constructoras y
-              contratistas avancen con claridad.
+              Enfoque institucional para constructoras y contratistas: revisión técnica, alcances
+              definidos, coordinación en obra y seguimiento para ejecutar con claridad.
             </motion.p>
 
             <motion.div
@@ -97,13 +97,13 @@ export default function ServiciosClient() {
                 href="/contacto"
                 className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
               >
-                Solicitar cotización
+                Enviar proyecto
               </Link>
               <Link
                 href="/galeria"
                 className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
               >
-                Ver galería
+                Ver proyectos
               </Link>
             </motion.div>
           </div>
@@ -128,8 +128,8 @@ export default function ServiciosClient() {
                 Planeación, cálculo y catálogo de conceptos
               </h2>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600">
-                Análisis y definición del proyecto con base en normativas, criterios de calidad y
-                especificaciones técnicas para sistemas de aluminio y vidrio.
+                Definición técnica del proyecto con base en criterios de calidad y especificaciones
+                para sistemas de aluminio y vidrio, orientado a ejecución en obra y coordinación.
               </p>
             </motion.div>
 
@@ -163,22 +163,22 @@ export default function ServiciosClient() {
                 className="space-y-4 md:col-span-7"
               >
                 <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                  <h3 className="text-sm font-semibold text-slate-900">Planeación y cálculo</h3>
+                  <h3 className="text-sm font-semibold text-slate-900">Revisión y definición</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                    Revisión del proyecto y planteamiento de soluciones conforme a normas. Se
-                    determinan calidades, espesores, sistemas, herrajes, anclajes y, cuando aplica,
-                    soportes de sujeción. Todo queda reflejado en memoria de cálculo y planos,
-                    conservando la conceptualización del proyectista y especificando los sistemas
-                    propuestos dentro de parámetros de economía y estética.
+                    Revisión del alcance y planteamiento de soluciones conforme a criterios del
+                    proyecto. Se definen sistemas, espesores, herrajes, anclajes y detalles de
+                    sujeción cuando aplica, para reflejarse en memoria de cálculo y planos.
+                  </p>
+                  <p className="mt-4 text-xs text-slate-500">
+                    Entregables: criterios, planos de referencia y documentación técnica.
                   </p>
                 </div>
 
                 <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
                   <h3 className="text-sm font-semibold text-slate-900">Catálogo de conceptos</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                    Se integra un catálogo descriptivo donde se documentan especificaciones y
-                    alcances de los sistemas propuestos, agregando claridad técnica y valor al
-                    proyecto.
+                    Integración de un catálogo descriptivo para documentar especificaciones y
+                    alcances, agregando claridad técnica al proyecto.
                   </p>
                 </div>
 
@@ -187,7 +187,7 @@ export default function ServiciosClient() {
                     href="/contacto"
                     className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
                   >
-                    Cotizar proyecto ejecutivo
+                    Enviar proyecto para revisión
                   </Link>
                   <Link
                     href="/respaldo"
@@ -217,12 +217,12 @@ export default function ServiciosClient() {
               >
                 <p className="text-xs font-semibold tracking-[0.25em] text-slate-500">EJECUCIÓN</p>
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-                  Calidad en fabricación e instalación
+                  Fabricación e instalación con coordinación en obra
                 </h2>
                 <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600">
-                  La experiencia acumulada nos ha llevado a alcanzar altos estándares de calidad
-                  gracias a un equipo especializado en fabricación e instalación, la integración de
-                  proveedores y la implementación de materiales óptimos de última generación.
+                  Coordinación con el equipo de obra y seguimiento de ejecución para mantener claridad
+                  en alcances, avances y entregables. El objetivo es reducir retrabajos y fricción
+                  durante la instalación.
                 </p>
 
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -230,7 +230,7 @@ export default function ServiciosClient() {
                     href="/contacto"
                     className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
                   >
-                    Cotizar ejecución
+                    Enviar proyecto
                   </Link>
                   <Link
                     href="/galeria"
@@ -265,7 +265,7 @@ export default function ServiciosClient() {
         </Container>
       </section>
 
-      {/* INGENIERÍAS */}
+      {/* REFERENCIAS */}
       <section className="bg-white">
         <Container>
           <div className="py-14 md:py-18">
@@ -276,13 +276,13 @@ export default function ServiciosClient() {
               transition={inViewT(0)}
               className="mb-8"
             >
-              <p className="text-xs font-semibold tracking-[0.25em] text-slate-500">INGENIERÍAS</p>
+              <p className="text-xs font-semibold tracking-[0.25em] text-slate-500">REFERENCIAS</p>
               <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
                 Proyectos y referencias
               </h2>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600">
-                Una muestra de proyectos donde se han desarrollado ingenierías y soluciones para
-                fachada y sistemas relacionados.
+                Una muestra de proyectos donde se han desarrollado soluciones de fachada y sistemas
+                relacionados.
               </p>
             </motion.div>
 
@@ -313,17 +313,17 @@ export default function ServiciosClient() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-slate-900">
-                    ¿Quieres una cotización con base en tu proyecto?
+                    ¿Tienes un proyecto que requiera aluminio y vidrio?
                   </p>
                   <p className="mt-1 text-sm text-slate-600">
-                    Compártenos ubicación, tipo de obra y lo que necesitas (aluminio/vidrio).
+                    Comparte el alcance y la ubicación para revisión técnica y propuesta.
                   </p>
                 </div>
                 <Link
                   href="/contacto"
                   className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
                 >
-                  Ir a contacto
+                  Enviar proyecto
                 </Link>
               </div>
             </motion.div>

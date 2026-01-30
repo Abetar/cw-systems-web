@@ -6,7 +6,21 @@ import ServiciosClient from "./ServiciosClient";
 export const metadata: Metadata = {
   title: site.pages.servicios.title,
   description: site.pages.servicios.description,
-  alternates: { canonical: "/servicios" },
+  keywords: site.keywords,
+  alternates: { canonical: `${site.url}/servicios` },
+  openGraph: {
+    type: "website",
+    url: `${site.url}/servicios`,
+    siteName: site.name,
+    title: site.pages.servicios.title,
+    description: site.pages.servicios.description,
+    locale: "es_MX",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.pages.servicios.title,
+    description: site.pages.servicios.description,
+  },
 };
 
 export default function ServiciosPage() {

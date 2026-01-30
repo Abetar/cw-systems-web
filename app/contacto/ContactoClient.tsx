@@ -10,14 +10,28 @@ function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4">{children}</div>;
 }
 
+function clean(v?: string) {
+  return typeof v === "string" ? v.trim() : "";
+}
+
 function buildWhatsAppLink(phone: string, text: string) {
   const digits = phone.replace(/[^\d]/g, "");
+  if (!digits) return "#";
   return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
 }
 
-function toTel(phone: string) {
-  const digits = phone.replace(/[^\d]/g, "");
-  return digits.startsWith("52") ? `+${digits}` : `+52${digits}`;
+function toTelHref(phone?: string) {
+  const p = clean(phone);
+  if (!p) return null;
+  const digits = p.replace(/[^\d]/g, "");
+  if (!digits) return null;
+  return `tel:+${digits.startsWith("52") ? digits : `52${digits}`}`;
+}
+
+function toMailtoHref(email?: string) {
+  const e = clean(email);
+  if (!e) return null;
+  return `mailto:${e}`;
 }
 
 export default function ContactoClient() {
@@ -29,32 +43,56 @@ export default function ContactoClient() {
     transition: { duration: 0.55, delay },
   });
 
-  const CONTACT = {
-    email: "info@cwsystems.com.mx",
-    phoneDisplay: "T. 52 (81) 1234-2318",
-    phoneTel: toTel("52 (81) 1234-2318"),
-    addressLines: [
-      "Calle Federico Gómez No. 1712, Col. Buenos Aires C.P. 64800",
-      "Monterrey, N.L. México",
-    ],
-  };
+  // Fuente de verdad: site.ts
+  // Si el cliente aún no te pasa datos reales, usamos fallbacks seguros.
+  const contactEmail = clean(site.contact?.email) || "info@cwsystems.com.mx";
+  const contactPhone = clean(site.contact?.phone); // opcional
+  const contactWhatsApp = clean(site.contact?.whatsapp); // opcional
+
+  const telHref = toTelHref(contactPhone);
+  const mailHref = toMailtoHref(contactEmail);
+
+  const addressLines = [
+    site.address?.street,
+    site.address?.neighborhood,
+    `${site.address?.city || site.city}, ${site.address?.state || site.state}`,
+    site.address?.zip ? `C.P. ${site.address.zip}` : "",
+    site.address?.country ? `${site.address.country}` : "",
+  ]
+    .map((x) => clean(x))
+    .filter(Boolean);
 
   const [form, setForm] = useState({
     nombre: "",
     empresa: "",
     telefono: "",
     email: "",
-    ciudad: site.city,
+    ubicacionProyecto: `${site.city}, ${site.state}`,
+    tipoProyecto: "Obra / Fachada",
+    etapaProyecto: "En planeación",
+    linkPlanos: "",
     mensaje: "",
   });
 
-  const whatsappTo = site.contact.whatsapp?.trim(); // opcional
-  const emailTo = CONTACT.email;
-
   const whatsappPrefill = useMemo(() => {
-    return `Hola, soy ${form.nombre || "[Nombre]"}${form.empresa ? ` de ${form.empresa}` : ""}.
-Busco cotizar aluminio/vidrio para un proyecto en ${form.ciudad || site.city}.
-Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
+    const name = form.nombre || "[Nombre]";
+    const company = form.empresa ? ` de ${form.empresa}` : "";
+    const location = form.ubicacionProyecto || `${site.city}, ${site.state}`;
+
+    return `Hola, soy ${name}${company}.
+Quiero enviar un proyecto para revisión.
+
+Ubicación del proyecto: ${location}
+Tipo: ${form.tipoProyecto}
+Etapa: ${form.etapaProyecto}
+Teléfono: ${form.telefono || "-"}
+Correo: ${form.email || "-"}
+
+Alcance / mensaje:
+${form.mensaje || "[Describe el alcance]"}
+
+Planos / información (link):
+${form.linkPlanos || "-"}`;
   }, [form]);
 
   function onChange<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
@@ -64,24 +102,34 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
   function submitMailto(e: React.FormEvent) {
     e.preventDefault();
 
+    // Requisitos mínimos: institucional pero práctico
     if (!form.nombre.trim() || !form.telefono.trim() || !form.mensaje.trim()) {
-      alert("Completa al menos: Nombre, Teléfono y Mensaje.");
+      alert("Completa al menos: Nombre, Teléfono y Alcance / Mensaje.");
       return;
     }
 
-    const subject = `Cotización - ${site.name} (${form.ciudad || site.city})`;
+    const subject = `Revisión de proyecto - ${site.name} (${site.city}, ${site.state})`;
+
     const body = [
+      "Datos de contacto",
       `Nombre: ${form.nombre}`,
       `Empresa: ${form.empresa || "-"}`,
       `Teléfono: ${form.telefono}`,
-      `Email: ${form.email || "-"}`,
-      `Ciudad: ${form.ciudad || "-"}`,
+      `Correo: ${form.email || "-"}`,
       "",
-      "Mensaje:",
+      "Datos del proyecto",
+      `Ubicación: ${form.ubicacionProyecto || "-"}`,
+      `Tipo: ${form.tipoProyecto || "-"}`,
+      `Etapa: ${form.etapaProyecto || "-"}`,
+      `Link de planos / alcance: ${form.linkPlanos || "-"}`,
+      "",
+      "Alcance / Mensaje",
       form.mensaje,
     ].join("\n");
 
-    window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
   }
 
   return (
@@ -94,22 +142,22 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
               {...anim(0)}
               className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600"
             >
-              Contacto • {site.city}, {site.state}
+              Enviar proyecto • {site.city}, {site.state}
             </motion.p>
 
             <motion.h1
               {...anim(0.05)}
               className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl"
             >
-              Contacto y cotización
+              Enviar proyecto para revisión
             </motion.h1>
 
             <motion.p
               {...anim(0.1)}
               className="mt-4 max-w-3xl text-pretty text-slate-600 md:text-lg"
             >
-              Envíanos los detalles del proyecto y te respondemos con claridad. Atención a constructoras y
-              contratistas en {site.city}, {site.state}.
+              Comparte el alcance y la información clave. Revisamos especificaciones y condiciones
+              para avanzar con una propuesta clara y coordinada con tu equipo.
             </motion.p>
           </div>
         </Container>
@@ -127,8 +175,10 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
               transition={{ duration: 0.55 }}
               className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
             >
-              <h2 className="text-base font-semibold text-slate-900">Solicita una cotización</h2>
-              <p className="mt-1 text-sm text-slate-600">Campos mínimos: Nombre, Teléfono y Mensaje.</p>
+              <h2 className="text-base font-semibold text-slate-900">Formulario de proyecto</h2>
+              <p className="mt-1 text-sm text-slate-600">
+                Campos mínimos: Nombre, Teléfono y Alcance / Mensaje.
+              </p>
 
               <form onSubmit={submitMailto} className="mt-6 grid gap-4">
                 <div className="grid gap-4 md:grid-cols-2">
@@ -175,22 +225,67 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-700">Ciudad</label>
+                  <label className="text-xs font-semibold text-slate-700">
+                    Ubicación del proyecto
+                  </label>
                   <input
-                    value={form.ciudad}
-                    onChange={(e) => onChange("ciudad", e.target.value)}
+                    value={form.ubicacionProyecto}
+                    onChange={(e) => onChange("ubicacionProyecto", e.target.value)}
                     className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-slate-200 focus:ring-2"
-                    placeholder="Monterrey"
+                    placeholder={`${site.city}, ${site.state}`}
+                  />
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div>
+                    <label className="text-xs font-semibold text-slate-700">Tipo</label>
+                    <select
+                      value={form.tipoProyecto}
+                      onChange={(e) => onChange("tipoProyecto", e.target.value)}
+                      className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-slate-200 focus:ring-2"
+                    >
+                      <option>Obra / Fachada</option>
+                      <option>Residencial</option>
+                      <option>Comercial</option>
+                      <option>Industrial</option>
+                      <option>Otro</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-slate-700">Etapa</label>
+                    <select
+                      value={form.etapaProyecto}
+                      onChange={(e) => onChange("etapaProyecto", e.target.value)}
+                      className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-slate-200 focus:ring-2"
+                    >
+                      <option>En planeación</option>
+                      <option>En ejecución</option>
+                      <option>Por iniciar</option>
+                      <option>Licitación</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-slate-700">
+                    Planos / alcance (link)
+                  </label>
+                  <input
+                    value={form.linkPlanos}
+                    onChange={(e) => onChange("linkPlanos", e.target.value)}
+                    className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-slate-200 focus:ring-2"
+                    placeholder="Drive / WeTransfer / Dropbox (opcional)"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-700">Mensaje *</label>
+                  <label className="text-xs font-semibold text-slate-700">Alcance / Mensaje *</label>
                   <textarea
                     value={form.mensaje}
                     onChange={(e) => onChange("mensaje", e.target.value)}
-                    className="mt-2 min-h-[120px] w-full resize-y rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-slate-200 focus:ring-2"
-                    placeholder="Tipo de obra, qué necesitas (aluminio/vidrio), ubicación, fechas, etc."
+                    className="mt-2 min-h-[140px] w-full resize-y rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-slate-200 focus:ring-2"
+                    placeholder="Describe el alcance: sistemas requeridos, cantidades aproximadas, ubicación, condiciones de acceso, fechas objetivo y cualquier restricción relevante."
                   />
                 </div>
 
@@ -201,9 +296,9 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
                   Enviar por correo
                 </button>
 
-                {whatsappTo ? (
+                {contactWhatsApp ? (
                   <a
-                    href={buildWhatsAppLink(whatsappTo, whatsappPrefill)}
+                    href={buildWhatsAppLink(contactWhatsApp, whatsappPrefill)}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
@@ -211,6 +306,11 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
                     Enviar por WhatsApp
                   </a>
                 ) : null}
+
+                <p className="text-xs text-slate-500">
+                  * Este formulario abre tu app de correo (mailto). Si prefieres, envía la misma
+                  información directamente al correo de contacto.
+                </p>
               </form>
             </motion.div>
 
@@ -230,61 +330,82 @@ Detalles: ${form.mensaje || "[Describe tu proyecto]"}`;
                     <p className="text-xs font-semibold text-slate-600">Correo</p>
                     <a
                       className="notranslate font-medium text-slate-900 hover:underline"
-                      href={`mailto:${CONTACT.email}`}
+                      href={mailHref || `mailto:${contactEmail}`}
                     >
-                      {CONTACT.email}
+                      {contactEmail}
                     </a>
                   </div>
 
-                  <div>
-                    <p className="text-xs font-semibold text-slate-600">Teléfono</p>
-                    <a
-                      className="notranslate font-medium text-slate-900 hover:underline"
-                      href={`tel:${CONTACT.phoneTel}`}
-                    >
-                      {CONTACT.phoneDisplay}
-                    </a>
-                  </div>
+                  {contactPhone ? (
+                    <div>
+                      <p className="text-xs font-semibold text-slate-600">Teléfono</p>
+                      {telHref ? (
+                        <a
+                          className="notranslate font-medium text-slate-900 hover:underline"
+                          href={telHref}
+                        >
+                          {contactPhone}
+                        </a>
+                      ) : (
+                        <p className="notranslate font-medium text-slate-900">{contactPhone}</p>
+                      )}
+                    </div>
+                  ) : null}
 
-                  <div>
-                    <p className="text-xs font-semibold text-slate-600">Dirección</p>
-                    <p className="notranslate font-medium text-slate-900">
-                      {CONTACT.addressLines[0]}
-                      <br />
-                      {CONTACT.addressLines[1]}
-                    </p>
-                  </div>
+                  {addressLines.length ? (
+                    <div>
+                      <p className="text-xs font-semibold text-slate-600">Ubicación</p>
+                      <p className="notranslate font-medium text-slate-900">
+                        {addressLines.map((line) => (
+                          <span key={line}>
+                            {line}
+                            <br />
+                          </span>
+                        ))}
+                      </p>
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className="mt-6 flex flex-col gap-3">
                   <Link
-                    href="/respaldo"
+                    href="/galeria"
                     className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
                   >
-                    Ver respaldo
+                    Ver proyectos
                   </Link>
 
                   <Link
                     href="/servicios"
                     className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
                   >
-                    Ver servicios
+                    Ver capacidades
+                  </Link>
+
+                  <Link
+                    href="/respaldo"
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                  >
+                    Ver respaldo
                   </Link>
                 </div>
 
                 <p className="mt-4 text-xs text-slate-500">
-                  * Si prefieres, también puedes escribirnos por correo con los detalles del proyecto.
+                  Consejo: mientras más claro el alcance (planos, cantidades, accesos, fechas), más
+                  útil será la propuesta.
                 </p>
               </div>
 
               <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <h3 className="text-sm font-semibold text-slate-900">Qué incluir para cotizar rápido</h3>
+                <h3 className="text-sm font-semibold text-slate-900">
+                  Información recomendada
+                </h3>
                 <ul className="mt-3 grid gap-2 text-sm text-slate-700">
                   {[
-                    "Tipo de obra (residencial / comercial / industrial)",
-                    `Ubicación (${site.city} / Área Metropolitana / ${site.state})`,
-                    "Qué necesitas (aluminio / vidrio)",
-                    "Fechas o urgencia",
+                    "Tipo de sistema y aplicación (fachada, cancelería, barandales, etc.)",
+                    "Ubicación del proyecto (zona / municipio) y etapa",
+                    "Fechas objetivo y condiciones de acceso a obra",
+                    "Planos o alcance (link a Drive/WeTransfer)",
                   ].map((x) => (
                     <li key={x} className="flex gap-2">
                       <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-900" />

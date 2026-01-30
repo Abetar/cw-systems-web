@@ -1,6 +1,7 @@
 // components/home/Hero.tsx
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { site } from "@/config/site";
@@ -8,104 +9,133 @@ import { site } from "@/config/site";
 export default function Hero() {
   const reduceMotion = useReducedMotion();
 
-  const baseInitial = { opacity: 0, y: reduceMotion ? 0 : 14 };
+  const baseInitial = { opacity: 0, y: reduceMotion ? 0 : 12 };
   const baseAnimate = { opacity: 1, y: 0 };
-
-  const t = (delay = 0) => ({
-    duration: 0.6,
-    delay,
-  });
+  const vp = { once: true, amount: 0.3 as const };
 
   return (
-    <section className="relative overflow-hidden border-b border-slate-200">
+    <section className="relative overflow-hidden bg-slate-900">
       {/* Background */}
       <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url(/hero.png)" }}
+        <Image
+          src="/hero.png"
+          alt={`Sistemas de aluminio y vidrio para obra en ${site.city}, ${site.state}`}
+          fill
+          priority
+          className="object-cover opacity-70"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/65 to-slate-950/35" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.35)_100%)]" />
+        {/* Overlay más institucional */}
+        <div className="absolute inset-0 bg-slate-900/80" />
       </div>
 
-      {/* Content */}
-      <div className="relative">
-        <div className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
-          <div className="flex min-h-[62vh] items-center md:min-h-[70vh]">
-            <div className="max-w-3xl">
-              <motion.p
-                initial={baseInitial}
-                animate={baseAnimate}
-                transition={t(0)}
-                className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/90 backdrop-blur"
-              >
-                {site.city}, {site.state} • Atención a constructoras y contratistas
-              </motion.p>
+      <div className="relative mx-auto max-w-6xl px-4 py-20 md:py-28">
+        {/* Ubicación */}
+        <motion.div
+          initial={baseInitial}
+          whileInView={baseAnimate}
+          viewport={vp}
+          transition={{ duration: 0.5 }}
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80"
+        >
+          <span className="h-2 w-2 rounded-full bg-white/70" />
+          {site.city}, Área Metropolitana, {site.state}
+        </motion.div>
 
-              <motion.h1
-                initial={baseInitial}
-                animate={baseAnimate}
-                transition={t(0.08)}
-                className="mt-5 text-balance text-4xl font-semibold tracking-tight text-white md:text-6xl"
-              >
-                Aluminio y vidrio para constructoras en Monterrey y Nuevo León
-              </motion.h1>
+        <div className="grid gap-12 lg:grid-cols-12">
+          {/* Texto principal */}
+          <div className="lg:col-span-7">
+            <motion.h1
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="text-balance text-3xl font-semibold tracking-tight text-white md:text-5xl"
+            >
+              Sistemas de aluminio y vidrio para obra en {site.city}, {site.state}
+            </motion.h1>
 
-              <motion.p
-                initial={baseInitial}
-                animate={baseAnimate}
-                transition={t(0.16)}
-                className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-white/85 md:text-lg"
-              >
-                Suministro confiable, comunicación clara y seguimiento para que tu obra avance sin
-                complicaciones.
-              </motion.p>
+            <motion.p
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={{ duration: 0.6, delay: 0.12 }}
+              className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-white/75"
+            >
+              Proveedor para constructoras y contratistas. Coordinación en obra,
+              alcances definidos y ejecución con enfoque en calidad, seguridad
+              y cumplimiento.
+            </motion.p>
 
-              <motion.div
-                initial={baseInitial}
-                animate={baseAnimate}
-                transition={t(0.24)}
-                className="mt-7 flex flex-col gap-3 sm:flex-row"
+            {/* CTAs institucionales */}
+            <motion.div
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={{ duration: 0.6, delay: 0.18 }}
+              className="mt-10 flex flex-col gap-3 sm:flex-row"
+            >
+              <Link
+                href="/contacto"
+                className="inline-flex items-center justify-center rounded-lg border border-white/30 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
               >
-                <Link
-                  href="/contacto"
-                  className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
-                >
-                  Solicitar cotización
-                </Link>
+                Enviar proyecto
+              </Link>
 
-                <Link
-                  href="/servicios"
-                  className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-transparent px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-                >
-                  Ver servicios
-                </Link>
-              </motion.div>
-
-              <motion.div
-                initial={baseInitial}
-                animate={baseAnimate}
-                transition={{ duration: 0.6, delay: 0.32 }}
-                className="mt-10 grid gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur md:grid-cols-4"
+              <Link
+                href="/galeria"
+                className="inline-flex items-center justify-center rounded-lg border border-white/15 px-6 py-3 text-sm font-semibold text-white/80 transition hover:bg-white/5"
               >
-                {[
-                  ["Enfoque", "B2B / Obra"],
-                  ["Clientes", "Constructoras"],
-                  ["Cobertura", site.serviceArea.join(", ")],
-                  ["Prioridad", "Seguimiento"],
-                ].map(([k, v]) => (
-                  <div
-                    key={k}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-                  >
-                    <p className="text-xs text-white/70">{k}</p>
-                    <p className="mt-1 text-sm font-semibold text-white">{v}</p>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
+                Ver proyectos
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* Tarjeta lateral (más discreta) */}
+          <div className="lg:col-span-5">
+            <motion.div
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={{ duration: 0.6, delay: 0.12 }}
+              className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/80"
+            >
+              <p className="text-sm font-semibold text-white">
+                Revisión de proyecto
+              </p>
+
+              <p className="mt-3 text-sm leading-relaxed">
+                Para una evaluación técnica adecuada, es importante compartir
+                el alcance y la información clave del proyecto.
+              </p>
+
+              <ul className="mt-4 space-y-2 text-sm">
+                <li>• Tipo de sistema y aplicación</li>
+                <li>• Ubicación y etapa de obra</li>
+                <li>• Fechas objetivo y condiciones de acceso</li>
+                <li>• Planos o alcance (link externo)</li>
+              </ul>
+
+              <Link
+                href="/contacto"
+                className="mt-6 inline-flex w-full items-center justify-center rounded-lg border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Ir a enviar proyecto
+              </Link>
+            </motion.div>
           </div>
         </div>
+
+        {/* Línea institucional inferior */}
+        <motion.p
+          initial={baseInitial}
+          whileInView={baseAnimate}
+          viewport={vp}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mt-12 max-w-4xl text-xs text-white/50"
+        >
+          {site.name} opera en {site.city}, {site.state}, con cobertura en el área
+          metropolitana y proyectos de obra y fachada en aluminio y vidrio.
+        </motion.p>
       </div>
     </section>
   );

@@ -5,9 +5,9 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 const PROCESS = [
-  { step: "01", title: "Comparte tu proyecto", desc: "Ubicación, tipo de obra y necesidades." },
-  { step: "02", title: "Revisión y cotización", desc: "Alineamos especificación y tiempos." },
-  { step: "03", title: "Suministro y seguimiento", desc: "Entrega y comunicación continua." },
+  { step: "01", title: "Comparte tu proyecto", desc: "Ubicación, tipo de obra, alcance y tiempos." },
+  { step: "02", title: "Revisión técnica", desc: "Alineamos especificación, sistemas y entregables." },
+  { step: "03", title: "Propuesta y seguimiento", desc: "Alcances claros y comunicación durante ejecución." },
 ];
 
 export default function Process() {
@@ -30,10 +30,10 @@ export default function Process() {
             className="space-y-3"
           >
             <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-              Un proceso simple para cotizar rápido
+              Un flujo claro para avanzar en obra
             </h2>
             <p className="max-w-3xl text-pretty text-slate-600">
-              Menos vueltas. Más claridad. Flujo pensado para avanzar sin perder tiempo.
+              Menos fricción, más control: revisión técnica, alcances definidos y seguimiento.
             </p>
           </motion.div>
 
@@ -66,7 +66,7 @@ export default function Process() {
               href="/contacto"
               className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
             >
-              Iniciar cotización
+              Enviar proyecto
             </Link>
           </motion.div>
         </div>

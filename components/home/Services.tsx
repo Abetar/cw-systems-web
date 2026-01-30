@@ -3,23 +3,24 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { site } from "@/config/site";
 
 const SERVICES = [
   {
-    title: "Sistemas de aluminio",
-    desc: "Soluciones para obra y proyecto: suministro para requerimientos de construcción.",
+    title: "Ingeniería y especificación",
+    desc: "Apoyo en definición de sistema, criterios técnicos y compatibilidades para obra y fachada.",
   },
   {
-    title: "Vidrio para construcción",
-    desc: "Opciones para proyectos residenciales, comerciales e industriales con enfoque en calidad.",
+    title: "Suministro y ejecución en obra",
+    desc: "Planeación de suministro, coordinación en sitio e instalación con enfoque en cumplimiento y calidad.",
   },
   {
-    title: "Proyectos a la medida",
-    desc: "Soporte para especificación, volúmenes y necesidades de constructoras y contratistas.",
+    title: "Sistemas de aluminio y vidrio",
+    desc: "Soluciones para proyectos residenciales, comerciales e industriales según alcance, volúmenes y programa.",
   },
   {
-    title: "Atención y seguimiento",
-    desc: "Comunicación clara y acompañamiento para evitar fricción durante la obra.",
+    title: "Seguimiento y control",
+    desc: "Comunicación clara, avances y entregables definidos para reducir fricción con contratistas y residentes.",
   },
 ];
 
@@ -29,6 +30,9 @@ export default function Services() {
   const baseInitial = { opacity: 0, y: reduceMotion ? 0 : 12 };
   const baseAnimate = { opacity: 1, y: 0 };
   const vp = { once: true, amount: 0.2 as const };
+
+  const city = site.city;
+  const state = site.state;
 
   return (
     <section className="bg-white">
@@ -43,10 +47,11 @@ export default function Services() {
             className="space-y-3"
           >
             <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-              Servicios en aluminio y vidrio para obra
+              Capacidades para proyectos de aluminio y vidrio
             </h2>
             <p className="max-w-3xl text-pretty text-slate-600">
-              Para constructoras y contratistas que necesitan claridad, tiempos y seguimiento.
+              Enfoque institucional para obra y fachada en {city}, {state}: definición técnica,
+              ejecución coordinada y seguimiento para constructoras y contratistas.
             </p>
           </motion.div>
 
@@ -63,6 +68,11 @@ export default function Services() {
               >
                 <p className="text-sm font-semibold text-slate-900">{s.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.desc}</p>
+
+                {/* Microline institucional para “seriedad” */}
+                <p className="mt-4 text-xs text-slate-500">
+                  Alcances definidos · Coordinación en obra · Entregables claros
+                </p>
               </motion.div>
             ))}
           </div>
@@ -73,12 +83,20 @@ export default function Services() {
             whileInView={baseAnimate}
             viewport={vp}
             transition={{ duration: 0.55, delay: 0.08 }}
+            className="flex flex-col gap-3 sm:flex-row sm:items-center"
           >
             <Link
               href="/servicios"
               className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
             >
-              Ver todos los servicios
+              Ver capacidades y servicios
+            </Link>
+
+            <Link
+              href="/contacto"
+              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              Enviar proyecto
             </Link>
           </motion.div>
         </div>
