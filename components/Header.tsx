@@ -48,19 +48,21 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white">
-            <img src="/cws-logo.png" alt={site.name} className="h-7 w-7" />
+        <Link href="/" className="flex items-center gap-3">
+          <div className="grid h-12 w-12 place-items-center rounded-2xl border border-slate-200 bg-white">
+            <img src="/cws-logo.png" alt={site.name} className="h-9 w-9" />
           </div>
           <div className="leading-tight">
-            <p className="text-sm font-semibold text-slate-900">{site.name}</p>
+            <p className="text-base font-semibold tracking-tight text-slate-900">
+              {site.name}
+            </p>
             <p className="text-xs text-slate-500">
               {site.city}, {site.state}
             </p>
           </div>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop nav (más sobrio / CV) */}
         <nav className="hidden items-center gap-1 md:flex">
           {site.nav.map((item) => {
             const active = isActive(pathname, item.href);
@@ -72,7 +74,7 @@ export default function Header() {
                   "rounded-xl px-3 py-2 text-sm font-medium transition",
                   active
                     ? "bg-slate-900 text-white"
-                    : "text-slate-800 hover:bg-slate-100",
+                    : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
                 ].join(" ")}
               >
                 {item.label}
@@ -81,35 +83,16 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2">
-          {/* Desktop CTA (institucional, no “venta”) */}
-          <Link
-            href="/contacto"
-            className="hidden rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50 md:inline-flex"
-          >
-            Enviar proyecto
-          </Link>
-
-          {/* Mobile CTA */}
-          <Link
-            href="/contacto"
-            className="inline-flex rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50 md:hidden"
-          >
-            Enviar proyecto
-          </Link>
-
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white transition hover:bg-slate-50 md:hidden"
-          >
-            <MenuIcon open={mobileOpen} />
-          </button>
-        </div>
+        {/* Mobile hamburger */}
+        <button
+          type="button"
+          aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((v) => !v)}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white transition hover:bg-slate-50 md:hidden"
+        >
+          <MenuIcon open={mobileOpen} />
+        </button>
       </div>
 
       {/* Mobile dropdown menu */}
@@ -142,7 +125,7 @@ export default function Header() {
 
               <div className="border-t border-slate-200 p-3">
                 <p className="text-xs text-slate-500">
-                  Atención a constructoras y contratistas en {site.city}, {site.state}.
+                  {site.name} · {site.city}, {site.state}
                 </p>
               </div>
             </div>

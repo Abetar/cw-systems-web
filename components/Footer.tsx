@@ -10,9 +10,9 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           {/* Brand */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white">
-                <img src="/cws-logo.png" alt={site.name} className="h-7 w-7" />
+            <div className="flex items-center gap-3">
+              <div className="grid h-12 w-12 place-items-center rounded-2xl border border-slate-200 bg-white">
+                <img src="/cws-logo.png" alt={site.name} className="h-8 w-8" />
               </div>
               <div>
                 <p className="text-sm font-semibold text-slate-900">{site.name}</p>
@@ -23,8 +23,8 @@ export default function Footer() {
             </div>
 
             <p className="max-w-sm text-sm leading-relaxed text-slate-600">
-              Soluciones en aluminio y vidrio para obra y fachada. Enfoque B2B para constructoras y
-              contratistas, con coordinación y seguimiento en proyecto.
+              Soluciones en aluminio y vidrio para obra y fachada. Perfil institucional para
+              proyectos con alcances y entregables definidos.
             </p>
           </div>
 
@@ -55,34 +55,32 @@ export default function Footer() {
                 {site.city}, {site.state}
               </p>
 
-              {site.contact.phone && (
+              {site.contact.phone ? (
                 <p>
                   <span className="font-medium text-slate-900">Teléfono:</span>{" "}
                   <a href={`tel:${site.contact.phone}`} className="hover:text-slate-900">
                     {site.contact.phone}
                   </a>
                 </p>
-              )}
+              ) : null}
 
-              {site.contact.email && (
+              {site.contact.email ? (
                 <p>
                   <span className="font-medium text-slate-900">Correo:</span>{" "}
                   <a href={`mailto:${site.contact.email}`} className="hover:text-slate-900">
                     {site.contact.email}
                   </a>
                 </p>
-              )}
+              ) : null}
             </div>
 
-            <Link
-              href="/contacto"
-              className="inline-flex w-fit rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-            >
-              Enviar proyecto
-            </Link>
-
+            {/* Canal único (sin CTA) */}
             <p className="text-xs text-slate-500">
-              Atención a obra y proyectos en {site.city} y {site.state}.
+              Envío de información y alcances únicamente desde el formulario en{" "}
+              <Link href="/contacto" className="font-medium text-slate-700 hover:text-slate-900">
+                Contacto
+              </Link>
+              .
             </p>
           </div>
         </div>

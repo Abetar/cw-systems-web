@@ -12,62 +12,67 @@ export const metadata: Metadata = {
 export default function EmpresaPage() {
   return (
     <div className="bg-white">
-      {/* HERO */}
-      <section className="border-b border-slate-200">
+      {/* HERO / IDENTIDAD */}
+      <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
           <p className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600">
             Empresa • {site.city}, {site.state}
           </p>
 
           <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-            CW Systems
+            {site.name}
           </h1>
 
           <p className="mt-4 max-w-3xl text-pretty text-base leading-relaxed text-slate-600 md:text-lg">
-            Especialistas en sistemas de aluminio y vidrio para obra y fachada. Enfoque institucional
-            para proyectos: revisión técnica, coordinación en sitio y ejecución alineada a programa y
-            especificaciones.
+            Sistemas de aluminio y vidrio para obra y fachada. Perfil técnico orientado a ejecución,
+            coordinación en sitio y cumplimiento de especificación.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
-              href="/galeria"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-            >
-              Ver proyectos
-            </Link>
-            <Link
-              href="/contacto"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-            >
-              Enviar proyecto
-            </Link>
+          {/* Datos rápidos tipo CV */}
+          <div className="mt-8 grid gap-3 md:grid-cols-3">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <p className="text-xs font-semibold text-slate-500">Ubicación</p>
+              <p className="mt-1 text-sm font-semibold text-slate-900">
+                {site.city}, {site.state}
+              </p>
+              <p className="mt-1 text-sm text-slate-600">Área metropolitana</p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <p className="text-xs font-semibold text-slate-500">Enfoque</p>
+              <p className="mt-1 text-sm font-semibold text-slate-900">Obra y fachada</p>
+              <p className="mt-1 text-sm text-slate-600">
+                Coordinación, alcances y ejecución
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <p className="text-xs font-semibold text-slate-500">Perfil</p>
+              <p className="mt-1 text-sm font-semibold text-slate-900">B2B</p>
+              <p className="mt-1 text-sm text-slate-600">
+                Constructoras · Contratistas · Supervisión
+              </p>
+            </div>
           </div>
 
           <p className="mt-6 max-w-4xl text-xs text-slate-500">
-            * Trabajamos con equipos de obra, supervisión y compras. La propuesta se construye con base
-            en alcance, planos y condiciones reales del sitio.
+            * La información y alcances se definen con base en planos, especificación y condiciones
+            reales de obra.
           </p>
         </div>
       </section>
 
-      {/* QUIÉNES SOMOS */}
+      {/* RESUMEN / PERFIL */}
       <section>
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
           <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-            Quiénes somos
+            Perfil
           </h2>
 
           <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">
-            CW Systems participa en proyectos de construcción donde la precisión técnica, la
-            coordinación en obra y la claridad de alcances hacen la diferencia. Nuestro rol es ser un
-            aliado ejecutor: entender el proyecto, alinear especificaciones y sostener el proceso hasta
-            el cierre.
-          </p>
-
-          <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">
-            Operamos principalmente en {site.city} y {site.state}, con soporte para obra residencial,
-            comercial e industrial cuando el alcance requiere planeación y seguimiento.
+            CW Systems participa en proyectos donde la claridad técnica y el control de ejecución son
+            críticos. El objetivo es sostener un proceso entendible: definir alcances, alinear
+            especificación y coordinar la instalación con el programa de obra.
           </p>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -97,114 +102,104 @@ export default function EmpresaPage() {
         </div>
       </section>
 
-      {/* CÓMO TRABAJAMOS */}
+      {/* METODOLOGÍA */}
       <section className="border-y border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
           <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-            Cómo trabajamos
+            Metodología de trabajo
           </h2>
 
           <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">
-            Un flujo serio y práctico: recepción de alcance, revisión técnica, propuesta y coordinación
-            para ejecución. El objetivo es avanzar con decisiones claras y con información verificable.
+            Flujo práctico para avanzar con decisiones claras y trazabilidad durante la ejecución.
           </p>
 
-          <ol className="mt-6 grid gap-4 md:grid-cols-2 text-sm text-slate-700">
-            <li className="rounded-xl border border-slate-200 bg-white p-4">
-              <p className="text-xs font-semibold text-slate-500">01</p>
-              <p className="mt-1 font-semibold text-slate-900">Recepción de alcance</p>
-              <p className="mt-1 text-slate-600">
-                Planos, cantidades, ubicación, accesos y etapa del proyecto.
-              </p>
-            </li>
-            <li className="rounded-xl border border-slate-200 bg-white p-4">
-              <p className="text-xs font-semibold text-slate-500">02</p>
-              <p className="mt-1 font-semibold text-slate-900">Revisión técnica</p>
-              <p className="mt-1 text-slate-600">
-                Alineación a especificaciones, compatibilidades y condiciones de obra.
-              </p>
-            </li>
-            <li className="rounded-xl border border-slate-200 bg-white p-4">
-              <p className="text-xs font-semibold text-slate-500">03</p>
-              <p className="mt-1 font-semibold text-slate-900">Propuesta de alcances</p>
-              <p className="mt-1 text-slate-600">
-                Definición de entregables, tiempos y supuestos para evitar ambigüedad.
-              </p>
-            </li>
-            <li className="rounded-xl border border-slate-200 bg-white p-4">
-              <p className="text-xs font-semibold text-slate-500">04</p>
-              <p className="mt-1 font-semibold text-slate-900">Coordinación y seguimiento</p>
-              <p className="mt-1 text-slate-600">
-                Comunicación continua durante ejecución para sostener el programa.
-              </p>
-            </li>
+          <ol className="mt-8 grid gap-4 md:grid-cols-2">
+            {[
+              {
+                step: "01",
+                title: "Recepción de alcance",
+                desc: "Planos, cantidades, ubicación, accesos, etapa y requerimientos.",
+              },
+              {
+                step: "02",
+                title: "Revisión técnica",
+                desc: "Alineación a especificación, compatibilidades y condiciones de obra.",
+              },
+              {
+                step: "03",
+                title: "Propuesta de alcances",
+                desc: "Supuestos, entregables y tiempos para evitar ambigüedad.",
+              },
+              {
+                step: "04",
+                title: "Coordinación y seguimiento",
+                desc: "Comunicación continua durante ejecución para sostener el programa.",
+              },
+            ].map((x) => (
+              <li key={x.step} className="rounded-2xl border border-slate-200 bg-white p-6">
+                <p className="text-xs font-semibold text-slate-500">{x.step}</p>
+                <p className="mt-2 text-sm font-semibold text-slate-900">{x.title}</p>
+                <p className="mt-2 text-sm text-slate-600">{x.desc}</p>
+              </li>
+            ))}
           </ol>
 
           <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
-            <p className="text-sm font-semibold text-slate-900">Enfoque de proyecto</p>
+            <p className="text-sm font-semibold text-slate-900">Criterio de proyecto</p>
             <p className="mt-2 text-sm text-slate-600">
-              Priorizamos proyectos que requieren coordinación, planeación y control de ejecución. Si
-              buscas una instalación menor o atención inmediata tipo retail, podemos orientarte, pero
-              este sitio está enfocado a obra.
+              Priorizamos proyectos que requieren coordinación y control de ejecución. Para alcances
+              menores tipo retail, se puede orientar el proceso, pero el enfoque principal del sitio
+              es obra.
             </p>
           </div>
         </div>
       </section>
 
-      {/* RESPALDO */}
+      {/* COBERTURA / TIPOS */}
       <section>
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
           <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-            Respaldo y colaboración
+            Cobertura y tipos de proyecto
           </h2>
 
           <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">
-            Colaboramos con proveedores y soluciones compatibles con requerimientos de obra, cuidando
-            disponibilidad, especificación y calidad según el proyecto.
+            Operación principal en {site.city} y {site.state}. Participación en proyectos residenciales,
+            comerciales e industriales cuando el alcance requiere planeación y seguimiento.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
-              href="/respaldo"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-            >
-              Ver respaldo
-            </Link>
-
-            <Link
-              href="/servicios"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-            >
-              Ver capacidades
-            </Link>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {[
+              { title: "Residencial (obra)", desc: "Proyectos habitacionales con alcances definidos." },
+              { title: "Comercial", desc: "Aplicaciones con necesidades de operación y durabilidad." },
+              { title: "Industrial", desc: "Requisitos técnicos y condiciones operativas específicas." },
+            ].map((x) => (
+              <div key={x.title} className="rounded-2xl border border-slate-200 bg-white p-6">
+                <p className="text-sm font-semibold text-slate-900">{x.title}</p>
+                <p className="mt-2 text-sm text-slate-600">{x.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA FINAL */}
-      <section className="border-t border-slate-200 bg-slate-50">
+      {/* RESPALDO (link institucional, no CTA) */}
+      <section className="border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
-          <h2 className="text-xl font-semibold text-slate-900 md:text-2xl">
-            ¿Tienes un proyecto en puerta?
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
+            Respaldo
           </h2>
-          <p className="mt-3 max-w-3xl text-sm text-slate-600">
-            Comparte el alcance, la ubicación y la etapa. Revisamos especificaciones y condiciones para
-            avanzar con una propuesta clara.
+
+          <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">
+            Colaboración con proveedores y soluciones compatibles con requerimientos de obra, cuidando
+            disponibilidad y especificación según el proyecto.
           </p>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
-              href="/contacto"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-            >
-              Enviar proyecto
+          <div className="mt-6 flex flex-col gap-2">
+            <Link href="/respaldo" className="text-sm font-semibold text-slate-800 hover:text-slate-900">
+              Ver respaldo de proveedores →
             </Link>
-
-            <Link
-              href="/galeria"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-            >
-              Ver proyectos
+            <Link href="/servicios" className="text-sm font-semibold text-slate-800 hover:text-slate-900">
+              Ver capacidades →
             </Link>
           </div>
         </div>

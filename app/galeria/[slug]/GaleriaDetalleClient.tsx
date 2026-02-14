@@ -27,7 +27,6 @@ export default function GaleriaDetalleClient(props: Props) {
 
   const images = useMemo(() => {
     const list = [props.hero, ...(props.secondary ?? [])].filter(Boolean);
-    // dedupe por si hero se repite
     return Array.from(new Set(list));
   }, [props.hero, props.secondary]);
 
@@ -35,7 +34,6 @@ export default function GaleriaDetalleClient(props: Props) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // si cambia de proyecto, resetea
     setActive(images[0] ?? "");
     setOpen(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,12 +44,12 @@ export default function GaleriaDetalleClient(props: Props) {
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
-      if (e.key === "ArrowRight") {
+      if (images.length > 1 && e.key === "ArrowRight") {
         const i = images.indexOf(active);
         const next = images[(i + 1) % images.length];
         if (next) setActive(next);
       }
-      if (e.key === "ArrowLeft") {
+      if (images.length > 1 && e.key === "ArrowLeft") {
         const i = images.indexOf(active);
         const prev = images[(i - 1 + images.length) % images.length];
         if (prev) setActive(prev);
@@ -59,13 +57,13 @@ export default function GaleriaDetalleClient(props: Props) {
     };
 
     document.addEventListener("keydown", onKeyDown);
-    // evitar scroll del body cuando modal está abierto
-    const prev = document.body.style.overflow;
+
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = prev;
+      document.body.style.overflow = prevOverflow;
     };
   }, [open, active, images]);
 
@@ -117,16 +115,11 @@ export default function GaleriaDetalleClient(props: Props) {
                   viewport={vp}
                   transition={{ duration: 0.55 }}
                   onClick={() => setOpen(true)}
-                  className="group relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 text-left"
+                  className="group relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 text-left focus:outline-none focus:ring-2 focus:ring-slate-900/20"
                   aria-label="Abrir imagen en pantalla completa"
                 >
-                  <img
-                    src={active}
-                    alt={props.title}
-                    className="h-full w-full object-cover"
-                  />
+                  <img src={active} alt={props.title} className="h-full w-full object-cover" />
 
-                  {/* overlay institucional / “click to enlarge” */}
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-black/0 to-black/0 opacity-0 transition group-hover:opacity-100" />
                   <div className="pointer-events-none absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs font-semibold text-white opacity-0 backdrop-blur transition group-hover:opacity-100">
                     Click para ampliar
@@ -150,9 +143,11 @@ export default function GaleriaDetalleClient(props: Props) {
                           onClick={() => setActive(src)}
                           className={cx(
                             "h-16 w-28 shrink-0 overflow-hidden rounded-xl border bg-slate-100",
+                            "focus:outline-none focus:ring-2 focus:ring-slate-900/20",
                             selected ? "border-slate-900" : "border-slate-200 hover:border-slate-300"
                           )}
                           aria-label="Cambiar imagen"
+                          aria-pressed={selected}
                         >
                           <img
                             src={src}
@@ -167,7 +162,7 @@ export default function GaleriaDetalleClient(props: Props) {
                 ) : null}
               </div>
 
-              {/* Aside institucional */}
+              {/* Aside institucional (sin CTA) */}
               <aside className="lg:col-span-4">
                 <motion.div
                   initial={baseInitial}
@@ -176,9 +171,7 @@ export default function GaleriaDetalleClient(props: Props) {
                   transition={{ duration: 0.55, delay: 0.04 }}
                   className="rounded-2xl border border-slate-200 bg-white p-6"
                 >
-                  <p className="text-sm font-semibold text-slate-900">
-                    Ficha del proyecto
-                  </p>
+                  <p className="text-sm font-semibold text-slate-900">Ficha del proyecto</p>
 
                   {hasBullets ? (
                     <ul className="mt-4 grid gap-2 text-sm text-slate-700">
@@ -191,19 +184,14 @@ export default function GaleriaDetalleClient(props: Props) {
                     </ul>
                   ) : (
                     <p className="mt-3 text-sm text-slate-600">
-                      Solicita información técnica y alcances por contacto.
+                      Material referencial. El detalle técnico se comparte por solicitud.
                     </p>
                   )}
 
-                  <Link
-                    href="/contacto"
-                    className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-                  >
-                    Enviar proyecto
-                  </Link>
+                  
 
-                  <p className="mt-3 text-xs text-slate-500">
-                    Referencias · Coordinación · Entregables claros
+                  <p className="mt-4 text-xs text-slate-500">
+                    Referencias · Coordinación · Entregables
                   </p>
                 </motion.div>
 
@@ -249,50 +237,46 @@ export default function GaleriaDetalleClient(props: Props) {
           className="fixed inset-0 z-[60]"
         >
           {/* backdrop */}
-          <button
-            type="button"
-            aria-label="Cerrar"
-            onClick={() => setOpen(false)}
+          <div
             className="absolute inset-0 bg-black/70"
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
           />
 
           {/* content */}
           <div className="absolute inset-0 flex items-center justify-center p-4">
-            <div className="relative w-full max-w-6xl overflow-hidden rounded-2xl border border-white/10 bg-black">
+            <div className="relative w-full max-w-6xl overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
               <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-white">{props.title}</p>
                   <p className="truncate text-xs text-white/60">
-                    Tip: ESC para cerrar · ← → para navegar
+                    ESC para cerrar{images.length > 1 ? " · ← → para navegar" : ""}
                   </p>
                 </div>
 
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10"
+                  className="rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20"
                 >
                   Cerrar
                 </button>
               </div>
 
               <div className="relative">
-                <img
-                  src={active}
-                  alt={props.title}
-                  className="max-h-[78vh] w-full object-contain"
-                />
+                <img src={active} alt={props.title} className="max-h-[78vh] w-full object-contain" />
 
                 {images.length > 1 ? (
                   <>
                     <button
                       type="button"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         const i = images.indexOf(active);
                         const prev = images[(i - 1 + images.length) % images.length];
                         if (prev) setActive(prev);
                       }}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20"
                       aria-label="Anterior"
                     >
                       ←
@@ -300,12 +284,13 @@ export default function GaleriaDetalleClient(props: Props) {
 
                     <button
                       type="button"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         const i = images.indexOf(active);
                         const next = images[(i + 1) % images.length];
                         if (next) setActive(next);
                       }}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20"
                       aria-label="Siguiente"
                     >
                       →

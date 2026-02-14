@@ -11,132 +11,143 @@ export default function Hero() {
 
   const baseInitial = { opacity: 0, y: reduceMotion ? 0 : 12 };
   const baseAnimate = { opacity: 1, y: 0 };
-  const vp = { once: true, amount: 0.3 as const };
+  const vp = { once: true, amount: 0.35 as const };
 
   return (
-    <section className="relative overflow-hidden bg-slate-900">
-      {/* Background */}
+    <section className="relative overflow-hidden bg-slate-950">
+      {/* Imagen de fondo (edificio) */}
       <div className="absolute inset-0">
         <Image
           src="/hero.png"
-          alt={`Sistemas de aluminio y vidrio para obra en ${site.city}, ${site.state}`}
+          alt={`Edificios y proyectos en ${site.city}, ${site.state}`}
           fill
           priority
           sizes="100vw"
           className="object-cover opacity-70"
         />
-        {/* Overlay más institucional */}
-        <div className="absolute inset-0 bg-slate-900/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/75 to-slate-950/90" />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-4 py-20 md:py-28">
-        {/* Ubicación */}
-        <motion.div
-          initial={baseInitial}
-          whileInView={baseAnimate}
-          viewport={vp}
-          transition={{ duration: 0.5 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80"
-        >
-          <span className="h-2 w-2 rounded-full bg-white/70" />
-          {site.city}, Área Metropolitana, {site.state}
-        </motion.div>
-
-        <div className="grid gap-12 lg:grid-cols-12">
-          {/* Texto principal */}
+      <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
+        {/* Bloque marca fuerte */}
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-7">
-            <motion.h1
-              initial={baseInitial}
-              whileInView={baseAnimate}
-              viewport={vp}
-              transition={{ duration: 0.6, delay: 0.05 }}
-              className="text-balance text-3xl font-semibold tracking-tight text-white md:text-5xl"
-            >
-              Sistemas de aluminio y vidrio para obra en {site.city}, {site.state}
-            </motion.h1>
-
-            <motion.p
-              initial={baseInitial}
-              whileInView={baseAnimate}
-              viewport={vp}
-              transition={{ duration: 0.6, delay: 0.12 }}
-              className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-white/75"
-            >
-              Enfoque B2B para constructoras y contratistas: coordinación en obra, alcances definidos y
-              ejecución con criterios de calidad, seguridad y cumplimiento.
-            </motion.p>
-
-            {/* CTA institucional (único primario) */}
             <motion.div
               initial={baseInitial}
               whileInView={baseAnimate}
               viewport={vp}
-              transition={{ duration: 0.6, delay: 0.18 }}
-              className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
+              transition={{ duration: 0.55 }}
+              className="flex items-center gap-4"
+            >
+              {/* Logo grande */}
+              <div className="grid h-20 w-20 place-items-center rounded-3xl border border-white/15 bg-white/5 md:h-24 md:w-24">
+                <img
+                  src="/cws-logo.png"
+                  alt={site.name}
+                  className="h-14 w-14 md:h-16 md:w-16"
+                />
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold tracking-[0.28em] text-white/60">
+                  ALUMINIO · VIDRIO · OBRA
+                </p>
+                <h1 className="mt-2 text-balance text-4xl font-semibold tracking-tight text-white md:text-6xl">
+                  {site.name}
+                </h1>
+                <p className="mt-2 text-sm text-white/70">
+                  {site.city}, {site.state}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Copy neutral, no “venta” */}
+            <motion.p
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={{ duration: 0.55, delay: 0.06 }}
+              className="mt-8 max-w-2xl text-pretty text-base leading-relaxed text-white/75"
+            >
+              Soluciones en aluminio y vidrio para proyectos de obra y fachada. Enfoque técnico, coordinación en sitio y ejecución con criterios de calidad.
+            </motion.p>
+
+            {/* Navegación (no CTA a contacto) */}
+            <motion.div
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={{ duration: 0.55, delay: 0.12 }}
+              className="mt-10 flex flex-wrap items-center gap-3"
             >
               <Link
-                href="/contacto"
-                className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                href="/empresa"
+                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10 hover:text-white"
               >
-                Enviar proyecto
+                Empresa
               </Link>
-
-              {/* Secundario como link (menos “ventas”) */}
+              <Link
+                href="/servicios"
+                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10 hover:text-white"
+              >
+                Servicios
+              </Link>
               <Link
                 href="/galeria"
-                className="inline-flex items-center justify-center text-sm font-semibold text-white/80 transition hover:text-white"
+                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10 hover:text-white"
               >
-                Ver proyectos →
+                Galería
+              </Link>
+              <Link
+                href="/respaldo"
+                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10 hover:text-white"
+              >
+                Respaldo
               </Link>
             </motion.div>
           </div>
 
-          {/* Tarjeta lateral (sin CTA duplicado) */}
+          {/* Panel tipo “CV” (datos rápidos) */}
           <div className="lg:col-span-5">
             <motion.div
               initial={baseInitial}
               whileInView={baseAnimate}
               viewport={vp}
-              transition={{ duration: 0.6, delay: 0.12 }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/80"
+              transition={{ duration: 0.55, delay: 0.1 }}
+              className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white/80"
             >
-              <p className="text-sm font-semibold text-white">Revisión de proyecto</p>
+              <p className="text-sm font-semibold text-white">Resumen</p>
 
-              <p className="mt-3 text-sm leading-relaxed">
-                Para una evaluación técnica adecuada, comparte el alcance y la información clave del
-                proyecto.
-              </p>
+              <div className="mt-4 grid gap-3 text-sm">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-xs font-semibold text-white/70">Cobertura</p>
+                  <p className="mt-1 font-medium text-white">
+                    {site.city} · Área Metropolitana · {site.state}
+                  </p>
+                </div>
 
-              <ul className="mt-4 space-y-2 text-sm">
-                <li>• Tipo de sistema y aplicación</li>
-                <li>• Ubicación y etapa de obra</li>
-                <li>• Fechas objetivo y condiciones de acceso</li>
-                <li>• Planos o alcance (link externo)</li>
-              </ul>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-xs font-semibold text-white/70">Enfoque</p>
+                  <p className="mt-1 text-white/85">
+                    Obra y fachada · Coordinación en sitio · Especificación técnica
+                  </p>
+                </div>
 
-              <div className="mt-5">
-                <Link
-                  href="/contacto"
-                  className="text-sm font-semibold text-white/80 transition hover:text-white"
-                >
-                  Ir a contacto →
-                </Link>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-xs font-semibold text-white/70">Contenido</p>
+                  <p className="mt-1 text-white/85">
+                    Capacidades · Proyectos · Proveedores
+                  </p>
+                </div>
               </div>
+
+              {/* Importante: NO link a contacto aquí */}
+              <p className="mt-5 text-xs text-white/50">
+                Contacto disponible únicamente en el formulario de la sección Contacto.
+              </p>
             </motion.div>
           </div>
         </div>
-
-        {/* Línea institucional inferior */}
-        <motion.p
-          initial={baseInitial}
-          whileInView={baseAnimate}
-          viewport={vp}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="mt-12 max-w-4xl text-xs text-white/50"
-        >
-          {site.name} opera en {site.city}, {site.state}, con cobertura en el área metropolitana y
-          proyectos de obra y fachada en aluminio y vidrio.
-        </motion.p>
       </div>
     </section>
   );

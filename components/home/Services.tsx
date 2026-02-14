@@ -1,26 +1,38 @@
-// components/home/Services.tsx
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import {
+  DraftingCompass,
+  HardHat,
+  Building2,
+  ClipboardCheck,
+} from "lucide-react";
 import { site } from "@/config/site";
 
 const SERVICES = [
   {
     title: "Ingeniería y especificación",
-    desc: "Apoyo en definición de sistema, criterios técnicos y compatibilidades para obra y fachada.",
+    subtitle: "Definición técnica y documentación base",
+    bullets: ["Criterios técnicos", "Compatibilidad en obra", "Documentación base"],
+    icon: DraftingCompass,
   },
   {
-    title: "Suministro y ejecución en obra",
-    desc: "Planeación de suministro, coordinación en sitio e instalación con enfoque en cumplimiento y calidad.",
+    title: "Suministro y ejecución",
+    subtitle: "Planeación, coordinación e instalación",
+    bullets: ["Planeación en sitio", "Coordinación en obra", "Instalación controlada"],
+    icon: HardHat,
   },
   {
-    title: "Sistemas de aluminio y vidrio",
-    desc: "Soluciones para proyectos residenciales, comerciales e industriales según alcance, volúmenes y programa.",
+    title: "Sistemas aluminio y vidrio",
+    subtitle: "Aplicaciones para obra y fachada",
+    bullets: ["Fachadas", "Cancelería", "Aplicaciones especiales"],
+    icon: Building2,
   },
   {
     title: "Seguimiento y control",
-    desc: "Comunicación clara, avances y entregables definidos para reducir fricción con constructoras, supervisión y contratistas.",
+    subtitle: "Avances, entregables y comunicación",
+    bullets: ["Avances definidos", "Entregables claros", "Comunicación continua"],
+    icon: ClipboardCheck,
   },
 ];
 
@@ -31,75 +43,66 @@ export default function Services() {
   const baseAnimate = { opacity: 1, y: 0 };
   const vp = { once: true, amount: 0.2 as const };
 
-  const city = site.city;
-  const state = site.state;
-
   return (
     <section className="bg-white">
-      <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-18">
-        <div className="space-y-10">
-          {/* Intro */}
-          <motion.div
-            initial={baseInitial}
-            whileInView={baseAnimate}
-            viewport={vp}
-            transition={{ duration: 0.55 }}
-            className="space-y-3"
-          >
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-              Capacidades para proyectos de aluminio y vidrio
-            </h2>
-            <p className="max-w-3xl text-pretty text-slate-600">
-              Soluciones para obra y fachada en {city}, {state}: definición técnica, ejecución coordinada
-              y seguimiento para constructoras y contratistas.
-            </p>
-          </motion.div>
+      <div className="mx-auto w-full max-w-6xl px-4 py-16 md:py-20">
+        {/* Título (CV style) */}
+        <motion.div
+          initial={baseInitial}
+          whileInView={baseAnimate}
+          viewport={vp}
+          transition={{ duration: 0.6 }}
+          className="mb-10 md:mb-14"
+        >
+          <p className="text-xs font-semibold tracking-[0.28em] text-slate-500">
+            PERFIL DE CAPACIDADES
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+            Capacidades
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm text-slate-600">
+            Perfil institucional enfocado en proyectos de obra y fachada en {site.city}, {site.state}.
+          </p>
+        </motion.div>
 
-          {/* Cards */}
-          <div className="grid gap-4 md:grid-cols-2">
-            {SERVICES.map((s, idx) => (
+        {/* Grid */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {SERVICES.map((s, idx) => {
+            const Icon = s.icon;
+
+            return (
               <motion.div
                 key={s.title}
                 initial={baseInitial}
                 whileInView={baseAnimate}
                 viewport={vp}
-                transition={{ duration: 0.55, delay: 0.06 * idx }}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
+                transition={{ duration: 0.6, delay: 0.08 * idx }}
+                className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:shadow-md"
               >
-                <p className="text-sm font-semibold text-slate-900">{s.title}</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.desc}</p>
+                {/* Icon badge */}
+                <div className="mb-5 inline-flex rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <Icon size={44} strokeWidth={1.5} className="text-slate-900" />
+                </div>
 
-                {idx === 0 || idx === 1 ? (
-                  <p className="mt-4 text-xs text-slate-500">
-                    Alcances definidos · Coordinación en obra · Entregables claros
-                  </p>
-                ) : null}
+                <h3 className="text-lg font-semibold text-slate-900">{s.title}</h3>
+                <p className="mt-2 text-sm text-slate-600">{s.subtitle}</p>
+
+                <ul className="mt-5 space-y-2 text-sm text-slate-700">
+                  {s.bullets.map((b) => (
+                    <li key={b} className="flex gap-2">
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-900" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* línea de cierre sobria */}
+                <p className="mt-6 text-xs text-slate-500">
+                  Alcance sujeto a especificación y condiciones de obra.
+                </p>
               </motion.div>
-            ))}
-          </div>
-
-          {/* CTA (más institucional, menos “landing”) */}
-          <motion.div
-            initial={baseInitial}
-            whileInView={baseAnimate}
-            viewport={vp}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
-            <Link
-              href="/servicios"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-            >
-              Ver capacidades
-            </Link>
-
-            <Link
-              href="/contacto"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-            >
-              Enviar proyecto
-            </Link>
-          </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

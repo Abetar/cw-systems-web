@@ -29,31 +29,30 @@ export default function GaleriaPage() {
 
   return (
     <div className="bg-white">
-      {/* HERO */}
+      {/* HERO (portafolio / CV) */}
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
           <p className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600">
-            Proyectos • {site.city}, {site.state}
+            Portafolio • {site.city}, {site.state}
           </p>
 
           <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-            Galería de proyectos
+            Proyectos (selección)
           </h1>
 
           <p className="mt-4 max-w-3xl text-pretty text-slate-600 md:text-lg">
-            Referencias de participación en proyectos con soluciones de aluminio y vidrio para obra y
-            fachada.
+            Referencias de participación en proyectos con soluciones de aluminio y vidrio para obra y fachada.
           </p>
 
           <p className="mt-4 max-w-3xl text-xs text-slate-500">
-            * La información y alcances específicos se confirman por proyecto. Las imágenes son
-            referencias de trabajos y/o soluciones ejecutadas.
+            * La información y alcances específicos se confirman por proyecto. Las imágenes son referencias de
+            trabajos y/o soluciones ejecutadas.
           </p>
         </div>
       </section>
 
       {/* GRID */}
-      <section>
+      <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
           {hasProjects ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -63,14 +62,14 @@ export default function GaleriaPage() {
                   href={`/galeria/${p.slug}`}
                   className={[
                     "group overflow-hidden rounded-2xl border border-slate-200 bg-white transition",
-                    "hover:border-slate-300 hover:bg-slate-50/40",
+                    "hover:border-slate-300 hover:shadow-sm",
                   ].join(" ")}
                 >
                   <div className="aspect-[16/10] overflow-hidden bg-slate-100">
                     <img
                       src={p.cover}
                       alt={p.title}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                       loading="lazy"
                     />
                   </div>
@@ -82,14 +81,13 @@ export default function GaleriaPage() {
                       {p.location ? p.location : `${site.city}, ${site.state}`}
                     </p>
 
-                    {/* microline institucional */}
                     <p className="mt-3 text-xs text-slate-500">
-                      Referencia de proyecto · Alcances sujetos a especificación
+                      Ficha de proyecto · Información referencial
                     </p>
 
-                    {/* CTA institucional (sin flecha, sin vibe “venta”) */}
+                    {/* Navegación interna, sin vibe “venta” */}
                     <p className="mt-4 inline-flex text-sm font-semibold text-slate-900">
-                      Ver ficha del proyecto
+                      Ver ficha
                     </p>
                   </div>
                 </Link>
@@ -99,24 +97,21 @@ export default function GaleriaPage() {
             <p className="text-sm text-slate-600">Aún no hay proyectos cargados.</p>
           )}
 
-          {/* CTA final sobrio */}
+          {/* BLOQUE FINAL (sin CTA) */}
           {hasProjects ? (
             <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="text-sm font-semibold text-slate-900">
-                    ¿Necesitas revisión técnica de alcance?
-                  </p>
-                  <p className="mt-1 text-sm text-slate-600">
-                    Comparte ubicación, etapa y requerimientos para propuesta de alcances y coordinación.
-                  </p>
-                </div>
+              <p className="text-sm font-semibold text-slate-900">Nota</p>
+              <p className="mt-2 max-w-3xl text-sm text-slate-600">
+                Las fichas presentan material referencial. Para información técnica o detalle de alcances,
+                consulta el apartado de contacto.
+              </p>
 
+              <div className="mt-4">
                 <Link
                   href="/contacto"
-                  className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                  className="text-sm font-semibold text-slate-800 hover:text-slate-900"
                 >
-                  Enviar proyecto
+                  Ir a contacto →
                 </Link>
               </div>
             </div>
