@@ -74,7 +74,7 @@ export default function ServiciosClient() {
               transition={heroT(0.06)}
               className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl"
             >
-              Capacidades para proyectos de fachada, ejecución e ingenierías
+              Capacidades para proyectos de aluminio y vidrio en obra
             </motion.h1>
 
             <motion.p
@@ -83,10 +83,11 @@ export default function ServiciosClient() {
               transition={heroT(0.12)}
               className="mt-4 max-w-3xl text-pretty text-base leading-relaxed text-slate-600 md:text-lg"
             >
-              Enfoque institucional para constructoras y contratistas: revisión técnica, alcances
-              definidos, coordinación en obra y seguimiento para ejecutar con claridad.
+              Enfoque técnico e institucional para constructoras y contratistas: revisión de alcance,
+              definición de criterios, coordinación en sitio y seguimiento para ejecutar con claridad.
             </motion.p>
 
+            {/* CTA sobrio: outline primero, negro solo como secundario */}
             <motion.div
               initial={baseInitial}
               animate={baseAnimate}
@@ -95,16 +96,66 @@ export default function ServiciosClient() {
             >
               <Link
                 href="/contacto"
-                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
               >
-                Enviar proyecto
+                Enviar proyecto para revisión
               </Link>
+
               <Link
                 href="/galeria"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
               >
                 Ver proyectos
               </Link>
+            </motion.div>
+
+            {/* Microline institucional */}
+            <motion.p
+              initial={baseInitial}
+              animate={baseAnimate}
+              transition={heroT(0.24)}
+              className="mt-6 max-w-3xl text-xs text-slate-500"
+            >
+              Alcances definidos · Entregables claros · Coordinación en obra · Seguimiento y control
+            </motion.p>
+          </div>
+        </Container>
+      </section>
+
+      {/* BLOQUE “CÓMO ENTREGAMOS” (institucional, tipo capacidades) */}
+      <section className="bg-white">
+        <Container>
+          <div className="py-12 md:py-14">
+            <motion.div
+              initial={baseInitial}
+              whileInView={baseAnimate}
+              viewport={vp}
+              transition={inViewT(0)}
+              className="grid gap-4 md:grid-cols-3"
+            >
+              {[
+                {
+                  title: "Alcance y criterios",
+                  desc: "Alineación de especificación, condiciones de obra, accesos y restricciones relevantes.",
+                },
+                {
+                  title: "Entregables",
+                  desc: "Documentación, criterios y definición técnica para sostener ejecución sin improvisación.",
+                },
+                {
+                  title: "Seguimiento",
+                  desc: "Coordinación con el equipo de obra para mantener control de avances y comunicación.",
+                },
+              ].map((x) => (
+                <div
+                  key={x.title}
+                  className="rounded-2xl border border-slate-200 bg-white p-6"
+                >
+                  <p className="text-sm font-semibold text-slate-900">{x.title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{x.desc}</p>
+                  <p className="mt-4 text-xs text-slate-500">Proceso · Coordinación · Cumplimiento</p>
+                </div>
+              ))}
             </motion.div>
           </div>
         </Container>
@@ -125,11 +176,11 @@ export default function ServiciosClient() {
                 PROYECTO EJECUTIVO DE FACHADA
               </p>
               <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-                Planeación, cálculo y catálogo de conceptos
+                Planeación, definición técnica y catálogo de conceptos
               </h2>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600">
-                Definición técnica del proyecto con base en criterios de calidad y especificaciones
-                para sistemas de aluminio y vidrio, orientado a ejecución en obra y coordinación.
+                Definición del proyecto con base en especificación y criterios técnicos para sistemas
+                de aluminio y vidrio, orientado a coordinación y ejecución en obra.
               </p>
             </motion.div>
 
@@ -165,33 +216,34 @@ export default function ServiciosClient() {
                 <div className="rounded-2xl border border-slate-200 bg-white p-6">
                   <h3 className="text-sm font-semibold text-slate-900">Revisión y definición</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                    Revisión del alcance y planteamiento de soluciones conforme a criterios del
-                    proyecto. Se definen sistemas, espesores, herrajes, anclajes y detalles de
-                    sujeción cuando aplica, para reflejarse en memoria de cálculo y planos.
+                    Revisión del alcance y planteamiento de soluciones conforme a criterios del proyecto.
+                    Se definen sistemas, espesores, herrajes, anclajes y detalles de sujeción cuando aplica,
+                    para reflejarse en documentación técnica y planos de referencia.
                   </p>
                   <p className="mt-4 text-xs text-slate-500">
-                    Entregables: criterios, planos de referencia y documentación técnica.
+                    Entregables: criterios, documentación técnica y soporte de coordinación.
                   </p>
                 </div>
 
                 <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
                   <h3 className="text-sm font-semibold text-slate-900">Catálogo de conceptos</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                    Integración de un catálogo descriptivo para documentar especificaciones y
-                    alcances, agregando claridad técnica al proyecto.
+                    Integración de catálogo descriptivo para documentar especificaciones y alcances,
+                    agregando claridad técnica al proyecto.
                   </p>
                 </div>
 
+                {/* CTA: una sola vez y sobrio */}
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link
                     href="/contacto"
-                    className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
                   >
                     Enviar proyecto para revisión
                   </Link>
                   <Link
                     href="/respaldo"
-                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                    className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
                   >
                     Ver respaldo
                   </Link>
@@ -220,23 +272,22 @@ export default function ServiciosClient() {
                   Fabricación e instalación con coordinación en obra
                 </h2>
                 <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600">
-                  Coordinación con el equipo de obra y seguimiento de ejecución para mantener claridad
-                  en alcances, avances y entregables. El objetivo es reducir retrabajos y fricción
-                  durante la instalación.
+                  Coordinación con el equipo de obra y seguimiento para mantener claridad en alcances,
+                  avances y entregables. El objetivo es reducir retrabajos y fricción durante la instalación.
                 </p>
 
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <Link
-                    href="/contacto"
-                    className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-                  >
-                    Enviar proyecto
-                  </Link>
                   <Link
                     href="/galeria"
                     className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
                   >
                     Ver proyectos
+                  </Link>
+                  <Link
+                    href="/contacto"
+                    className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                  >
+                    Enviar proyecto
                   </Link>
                 </div>
               </motion.div>
@@ -278,11 +329,11 @@ export default function ServiciosClient() {
             >
               <p className="text-xs font-semibold tracking-[0.25em] text-slate-500">REFERENCIAS</p>
               <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-                Proyectos y referencias
+                Selección de proyectos
               </h2>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600">
-                Una muestra de proyectos donde se han desarrollado soluciones de fachada y sistemas
-                relacionados.
+                Referencias de participación en proyectos con necesidades de fachada, cancelería y sistemas
+                relacionados. La información detallada se comparte por solicitud.
               </p>
             </motion.div>
 
@@ -303,6 +354,7 @@ export default function ServiciosClient() {
               </ul>
             </motion.div>
 
+            {/* CTA final: sobrio, con jerarquía correcta */}
             <motion.div
               initial={baseInitial}
               whileInView={baseAnimate}
@@ -313,15 +365,15 @@ export default function ServiciosClient() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-slate-900">
-                    ¿Tienes un proyecto que requiera aluminio y vidrio?
+                    ¿Necesitas revisar alcance y condiciones de obra?
                   </p>
                   <p className="mt-1 text-sm text-slate-600">
-                    Comparte el alcance y la ubicación para revisión técnica y propuesta.
+                    Comparte ubicación, etapa y requerimientos para revisión técnica y propuesta de alcances.
                   </p>
                 </div>
                 <Link
                   href="/contacto"
-                  className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
                 >
                   Enviar proyecto
                 </Link>

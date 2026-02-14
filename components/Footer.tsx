@@ -15,9 +15,7 @@ export default function Footer() {
                 <img src="/cws-logo.png" alt={site.name} className="h-7 w-7" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-900">
-                  {site.name}
-                </p>
+                <p className="text-sm font-semibold text-slate-900">{site.name}</p>
                 <p className="text-xs text-slate-500">
                   {site.city}, {site.state}
                 </p>
@@ -25,16 +23,14 @@ export default function Footer() {
             </div>
 
             <p className="max-w-sm text-sm leading-relaxed text-slate-600">
-              Proveedor de aluminio y vidrio para constructoras y contratistas.
-              Enfocados en calidad, claridad y seguimiento para proyectos de obra.
+              Soluciones en aluminio y vidrio para obra y fachada. Enfoque B2B para constructoras y
+              contratistas, con coordinación y seguimiento en proyecto.
             </p>
           </div>
 
           {/* Navigation */}
           <div className="space-y-3">
-            <p className="text-sm font-semibold text-slate-900">
-              Navegación
-            </p>
+            <p className="text-sm font-semibold text-slate-900">Navegación</p>
             <ul className="space-y-2 text-sm">
               {site.nav.map((item) => (
                 <li key={item.href}>
@@ -51,9 +47,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="space-y-3">
-            <p className="text-sm font-semibold text-slate-900">
-              Contacto
-            </p>
+            <p className="text-sm font-semibold text-slate-900">Contacto</p>
 
             <div className="space-y-2 text-sm text-slate-600">
               <p>
@@ -64,10 +58,7 @@ export default function Footer() {
               {site.contact.phone && (
                 <p>
                   <span className="font-medium text-slate-900">Teléfono:</span>{" "}
-                  <a
-                    href={`tel:${site.contact.phone}`}
-                    className="hover:text-slate-900"
-                  >
+                  <a href={`tel:${site.contact.phone}`} className="hover:text-slate-900">
                     {site.contact.phone}
                   </a>
                 </p>
@@ -76,10 +67,7 @@ export default function Footer() {
               {site.contact.email && (
                 <p>
                   <span className="font-medium text-slate-900">Correo:</span>{" "}
-                  <a
-                    href={`mailto:${site.contact.email}`}
-                    className="hover:text-slate-900"
-                  >
+                  <a href={`mailto:${site.contact.email}`} className="hover:text-slate-900">
                     {site.contact.email}
                   </a>
                 </p>
@@ -88,10 +76,14 @@ export default function Footer() {
 
             <Link
               href="/contacto"
-              className="inline-flex w-fit rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="inline-flex w-fit rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
             >
-              Solicitar cotización
+              Enviar proyecto
             </Link>
+
+            <p className="text-xs text-slate-500">
+              Atención a obra y proyectos en {site.city} y {site.state}.
+            </p>
           </div>
         </div>
 

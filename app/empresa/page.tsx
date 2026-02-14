@@ -6,21 +6,7 @@ import { site } from "@/config/site";
 export const metadata: Metadata = {
   title: site.pages.empresa.title,
   description: site.pages.empresa.description,
-  keywords: site.keywords,
   alternates: { canonical: `${site.url}/empresa` },
-  openGraph: {
-    type: "website",
-    url: `${site.url}/empresa`,
-    siteName: site.name,
-    title: site.pages.empresa.title,
-    description: site.pages.empresa.description,
-    locale: "es_MX",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: site.pages.empresa.title,
-    description: site.pages.empresa.description,
-  },
 };
 
 export default function EmpresaPage() {
@@ -38,9 +24,9 @@ export default function EmpresaPage() {
           </h1>
 
           <p className="mt-4 max-w-3xl text-pretty text-base leading-relaxed text-slate-600 md:text-lg">
-            Proveedor de sistemas de aluminio y vidrio para proyectos de obra y fachada. Enfoque
-            institucional para constructoras y contratistas: definición técnica, coordinación en obra y
-            entregables claros.
+            Especialistas en sistemas de aluminio y vidrio para obra y fachada. Enfoque institucional
+            para proyectos: revisión técnica, coordinación en sitio y ejecución alineada a programa y
+            especificaciones.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -57,6 +43,11 @@ export default function EmpresaPage() {
               Enviar proyecto
             </Link>
           </div>
+
+          <p className="mt-6 max-w-4xl text-xs text-slate-500">
+            * Trabajamos con equipos de obra, supervisión y compras. La propuesta se construye con base
+            en alcance, planos y condiciones reales del sitio.
+          </p>
         </div>
       </section>
 
@@ -68,35 +59,33 @@ export default function EmpresaPage() {
           </h2>
 
           <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">
-            CW Systems brinda soluciones en aluminio y vidrio para proyectos de construcción, trabajando
-            con equipos que requieren claridad técnica, coordinación en sitio y un proceso de ejecución
-            definido.
+            CW Systems participa en proyectos de construcción donde la precisión técnica, la
+            coordinación en obra y la claridad de alcances hacen la diferencia. Nuestro rol es ser un
+            aliado ejecutor: entender el proyecto, alinear especificaciones y sostener el proceso hasta
+            el cierre.
           </p>
 
           <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">
-            Nuestro enfoque prioriza la compatibilidad con especificaciones, la planeación de alcances y
-            la comunicación continua para reducir fricción durante el desarrollo de la obra.
+            Operamos principalmente en {site.city} y {site.state}, con soporte para obra residencial,
+            comercial e industrial cuando el alcance requiere planeación y seguimiento.
           </p>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
               {
-                title: "Enfoque en obra",
-                desc: "Alineación a programa, accesos, condiciones y coordinación en sitio.",
+                title: "Interlocución técnica",
+                desc: "Alineación de criterios, compatibilidades y requerimientos desde la etapa de revisión.",
               },
               {
-                title: "Definición técnica",
-                desc: "Criterios claros para selección de sistemas y compatibilidades.",
+                title: "Coordinación en obra",
+                desc: "Planeación de accesos, frentes de trabajo y programa para ejecutar sin fricción.",
               },
               {
                 title: "Ejecución con control",
-                desc: "Entregables, seguimiento y comunicación para evitar retrabajos.",
+                desc: "Alcances definidos, seguimiento y comunicación para reducir retrabajos.",
               },
             ].map((x) => (
-              <div
-                key={x.title}
-                className="rounded-2xl border border-slate-200 bg-white p-6"
-              >
+              <div key={x.title} className="rounded-2xl border border-slate-200 bg-white p-6">
                 <p className="text-sm font-semibold text-slate-900">{x.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{x.desc}</p>
                 <p className="mt-4 text-xs text-slate-500">
@@ -116,26 +105,53 @@ export default function EmpresaPage() {
           </h2>
 
           <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">
-            Un proceso simple y serio: recepción de alcance, revisión técnica, propuesta y coordinación
-            para ejecución. Sin promesas genéricas; lo importante es alinear especificaciones y
-            condiciones reales de obra.
+            Un flujo serio y práctico: recepción de alcance, revisión técnica, propuesta y coordinación
+            para ejecución. El objetivo es avanzar con decisiones claras y con información verificable.
           </p>
 
-          <ul className="mt-6 grid gap-4 md:grid-cols-2 text-sm text-slate-700">
-            <li>• Revisión del alcance, condiciones de acceso y etapa de proyecto</li>
-            <li>• Alineación de especificaciones, criterios y compatibilidades</li>
-            <li>• Definición de entregables y plan de trabajo con el equipo de obra</li>
-            <li>• Coordinación y seguimiento durante la ejecución</li>
-          </ul>
+          <ol className="mt-6 grid gap-4 md:grid-cols-2 text-sm text-slate-700">
+            <li className="rounded-xl border border-slate-200 bg-white p-4">
+              <p className="text-xs font-semibold text-slate-500">01</p>
+              <p className="mt-1 font-semibold text-slate-900">Recepción de alcance</p>
+              <p className="mt-1 text-slate-600">
+                Planos, cantidades, ubicación, accesos y etapa del proyecto.
+              </p>
+            </li>
+            <li className="rounded-xl border border-slate-200 bg-white p-4">
+              <p className="text-xs font-semibold text-slate-500">02</p>
+              <p className="mt-1 font-semibold text-slate-900">Revisión técnica</p>
+              <p className="mt-1 text-slate-600">
+                Alineación a especificaciones, compatibilidades y condiciones de obra.
+              </p>
+            </li>
+            <li className="rounded-xl border border-slate-200 bg-white p-4">
+              <p className="text-xs font-semibold text-slate-500">03</p>
+              <p className="mt-1 font-semibold text-slate-900">Propuesta de alcances</p>
+              <p className="mt-1 text-slate-600">
+                Definición de entregables, tiempos y supuestos para evitar ambigüedad.
+              </p>
+            </li>
+            <li className="rounded-xl border border-slate-200 bg-white p-4">
+              <p className="text-xs font-semibold text-slate-500">04</p>
+              <p className="mt-1 font-semibold text-slate-900">Coordinación y seguimiento</p>
+              <p className="mt-1 text-slate-600">
+                Comunicación continua durante ejecución para sostener el programa.
+              </p>
+            </li>
+          </ol>
 
-          <p className="mt-6 max-w-4xl text-sm leading-relaxed text-slate-600">
-            El objetivo es reducir fricción, retrabajos y decisiones improvisadas durante el desarrollo
-            del proyecto.
-          </p>
+          <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
+            <p className="text-sm font-semibold text-slate-900">Enfoque de proyecto</p>
+            <p className="mt-2 text-sm text-slate-600">
+              Priorizamos proyectos que requieren coordinación, planeación y control de ejecución. Si
+              buscas una instalación menor o atención inmediata tipo retail, podemos orientarte, pero
+              este sitio está enfocado a obra.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* RESPALDO (sin claims inflados) */}
+      {/* RESPALDO */}
       <section>
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
           <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
@@ -143,9 +159,8 @@ export default function EmpresaPage() {
           </h2>
 
           <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">
-            Participamos en proyectos donde la coordinación, la claridad técnica y el control de
-            ejecución son críticos. Trabajamos con materiales y soluciones compatibles con necesidades de
-            obra y requerimientos del cliente.
+            Colaboramos con proveedores y soluciones compatibles con requerimientos de obra, cuidando
+            disponibilidad, especificación y calidad según el proyecto.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -173,8 +188,8 @@ export default function EmpresaPage() {
             ¿Tienes un proyecto en puerta?
           </h2>
           <p className="mt-3 max-w-3xl text-sm text-slate-600">
-            Comparte el alcance y la ubicación. Revisamos especificaciones y condiciones para avanzar con
-            una propuesta clara.
+            Comparte el alcance, la ubicación y la etapa. Revisamos especificaciones y condiciones para
+            avanzar con una propuesta clara.
           </p>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">

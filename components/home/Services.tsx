@@ -20,7 +20,7 @@ const SERVICES = [
   },
   {
     title: "Seguimiento y control",
-    desc: "Comunicación clara, avances y entregables definidos para reducir fricción con contratistas y residentes.",
+    desc: "Comunicación clara, avances y entregables definidos para reducir fricción con constructoras, supervisión y contratistas.",
   },
 ];
 
@@ -50,8 +50,8 @@ export default function Services() {
               Capacidades para proyectos de aluminio y vidrio
             </h2>
             <p className="max-w-3xl text-pretty text-slate-600">
-              Enfoque institucional para obra y fachada en {city}, {state}: definición técnica,
-              ejecución coordinada y seguimiento para constructoras y contratistas.
+              Soluciones para obra y fachada en {city}, {state}: definición técnica, ejecución coordinada
+              y seguimiento para constructoras y contratistas.
             </p>
           </motion.div>
 
@@ -69,15 +69,16 @@ export default function Services() {
                 <p className="text-sm font-semibold text-slate-900">{s.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.desc}</p>
 
-                {/* Microline institucional para “seriedad” */}
-                <p className="mt-4 text-xs text-slate-500">
-                  Alcances definidos · Coordinación en obra · Entregables claros
-                </p>
+                {idx === 0 || idx === 1 ? (
+                  <p className="mt-4 text-xs text-slate-500">
+                    Alcances definidos · Coordinación en obra · Entregables claros
+                  </p>
+                ) : null}
               </motion.div>
             ))}
           </div>
 
-          {/* CTA */}
+          {/* CTA (más institucional, menos “landing”) */}
           <motion.div
             initial={baseInitial}
             whileInView={baseAnimate}
@@ -89,12 +90,12 @@ export default function Services() {
               href="/servicios"
               className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
             >
-              Ver capacidades y servicios
+              Ver capacidades
             </Link>
 
             <Link
               href="/contacto"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
             >
               Enviar proyecto
             </Link>

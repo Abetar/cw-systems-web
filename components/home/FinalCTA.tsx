@@ -33,8 +33,8 @@ export default function FinalCta() {
             transition={{ duration: 0.55, delay: 0.06 }}
             className="max-w-3xl text-pretty text-slate-200"
           >
-            Atención a constructoras y contratistas en {site.city} y {site.state}. Comparte lo esencial
-            para revisión técnica y propuesta de alcances.
+            Colaboramos con constructoras y contratistas en {site.city} y {site.state}. Comparte lo
+            esencial para revisión técnica y definición de alcances.
           </motion.p>
 
           <motion.div

@@ -40,7 +40,6 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Cierra el menú al cambiar de ruta
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
@@ -84,20 +83,20 @@ export default function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          {/* Desktop CTA */}
+          {/* Desktop CTA (institucional, no “venta”) */}
           <Link
             href="/contacto"
-            className="hidden rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 md:inline-flex"
+            className="hidden rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50 md:inline-flex"
           >
-            Cotizar
+            Enviar proyecto
           </Link>
 
           {/* Mobile CTA */}
           <Link
             href="/contacto"
-            className="inline-flex rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50 md:hidden"
+            className="inline-flex rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50 md:hidden"
           >
-            Cotizar
+            Enviar proyecto
           </Link>
 
           {/* Mobile hamburger */}

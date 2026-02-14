@@ -25,81 +25,102 @@ export const metadata: Metadata = {
 };
 
 export default function GaleriaPage() {
+  const hasProjects = galleryProjects.length > 0;
+
   return (
     <div className="bg-white">
+      {/* HERO */}
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
           <p className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600">
             Proyectos • {site.city}, {site.state}
           </p>
+
           <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">
             Galería de proyectos
           </h1>
+
           <p className="mt-4 max-w-3xl text-pretty text-slate-600 md:text-lg">
-            Referencias de proyectos y soluciones en aluminio y vidrio para obra y fachada.
+            Referencias de participación en proyectos con soluciones de aluminio y vidrio para obra y
+            fachada.
+          </p>
+
+          <p className="mt-4 max-w-3xl text-xs text-slate-500">
+            * La información y alcances específicos se confirman por proyecto. Las imágenes son
+            referencias de trabajos y/o soluciones ejecutadas.
           </p>
         </div>
       </section>
 
+      {/* GRID */}
       <section>
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-18">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {galleryProjects.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/galeria/${p.slug}`}
-                className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
-              >
-                <div className="aspect-[16/10] overflow-hidden bg-slate-100">
-                  <img
-                    src={p.cover}
-                    alt={p.title}
-                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                </div>
+          {hasProjects ? (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {galleryProjects.map((p) => (
+                <Link
+                  key={p.slug}
+                  href={`/galeria/${p.slug}`}
+                  className={[
+                    "group overflow-hidden rounded-2xl border border-slate-200 bg-white transition",
+                    "hover:border-slate-300 hover:bg-slate-50/40",
+                  ].join(" ")}
+                >
+                  <div className="aspect-[16/10] overflow-hidden bg-slate-100">
+                    <img
+                      src={p.cover}
+                      alt={p.title}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
 
-                <div className="p-5">
-                  <p className="text-sm font-semibold text-slate-900">{p.title}</p>
+                  <div className="p-5">
+                    <p className="text-sm font-semibold text-slate-900">{p.title}</p>
 
-                  {p.location ? (
-                    <p className="mt-1 text-sm text-slate-600">{p.location}</p>
-                  ) : (
                     <p className="mt-1 text-sm text-slate-600">
-                      {site.city}, {site.state}
+                      {p.location ? p.location : `${site.city}, ${site.state}`}
                     </p>
-                  )}
 
-                  <p className="mt-3 text-sm font-medium text-slate-700 transition group-hover:text-slate-900">
-                    Ver detalle →
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+                    {/* microline institucional */}
+                    <p className="mt-3 text-xs text-slate-500">
+                      Referencia de proyecto · Alcances sujetos a especificación
+                    </p>
 
-          {galleryProjects.length === 0 ? (
-            <p className="mt-6 text-sm text-slate-600">Aún no hay proyectos cargados.</p>
+                    {/* CTA institucional (sin flecha, sin vibe “venta”) */}
+                    <p className="mt-4 inline-flex text-sm font-semibold text-slate-900">
+                      Ver ficha del proyecto
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           ) : (
+            <p className="text-sm text-slate-600">Aún no hay proyectos cargados.</p>
+          )}
+
+          {/* CTA final sobrio */}
+          {hasProjects ? (
             <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-slate-900">
-                    ¿Tienes un proyecto en planeación o ejecución?
+                    ¿Necesitas revisión técnica de alcance?
                   </p>
                   <p className="mt-1 text-sm text-slate-600">
-                    Comparte el alcance y la ubicación para revisión técnica y propuesta.
+                    Comparte ubicación, etapa y requerimientos para propuesta de alcances y coordinación.
                   </p>
                 </div>
+
                 <Link
                   href="/contacto"
-                  className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
                 >
                   Enviar proyecto
                 </Link>
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       </section>
     </div>

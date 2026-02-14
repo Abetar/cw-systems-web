@@ -37,14 +37,15 @@ function toMailtoHref(email?: string) {
 export default function ContactoClient() {
   const reduceMotion = useReducedMotion();
 
-  const anim = (delay = 0) => ({
+  const vp = { once: true, amount: 0.2 as const };
+  const animInView = (delay = 0) => ({
     initial: { opacity: 0, y: reduceMotion ? 0 : 12 },
-    animate: { opacity: 1, y: 0 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: vp,
     transition: { duration: 0.55, delay },
   });
 
   // Fuente de verdad: site.ts
-  // Si el cliente aún no te pasa datos reales, usamos fallbacks seguros.
   const contactEmail = clean(site.contact?.email) || "info@cwsystems.com.mx";
   const contactPhone = clean(site.contact?.phone); // opcional
   const contactWhatsApp = clean(site.contact?.whatsapp); // opcional
@@ -80,7 +81,7 @@ export default function ContactoClient() {
     const location = form.ubicacionProyecto || `${site.city}, ${site.state}`;
 
     return `Hola, soy ${name}${company}.
-Quiero enviar un proyecto para revisión.
+Quiero enviar un proyecto para revisión técnica.
 
 Ubicación del proyecto: ${location}
 Tipo: ${form.tipoProyecto}
@@ -93,7 +94,7 @@ ${form.mensaje || "[Describe el alcance]"}
 
 Planos / información (link):
 ${form.linkPlanos || "-"}`;
-  }, [form]);
+  }, [form, site.city, site.state]);
 
   function onChange<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -102,13 +103,12 @@ ${form.linkPlanos || "-"}`;
   function submitMailto(e: React.FormEvent) {
     e.preventDefault();
 
-    // Requisitos mínimos: institucional pero práctico
     if (!form.nombre.trim() || !form.telefono.trim() || !form.mensaje.trim()) {
       alert("Completa al menos: Nombre, Teléfono y Alcance / Mensaje.");
       return;
     }
 
-    const subject = `Revisión de proyecto - ${site.name} (${site.city}, ${site.state})`;
+    const subject = `Solicitud de revisión - ${site.name} (${site.city}, ${site.state})`;
 
     const body = [
       "Datos de contacto",
@@ -139,25 +139,25 @@ ${form.linkPlanos || "-"}`;
         <Container>
           <div className="py-14 md:py-18">
             <motion.p
-              {...anim(0)}
+              {...animInView(0)}
               className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600"
             >
-              Enviar proyecto • {site.city}, {site.state}
+              Solicitud de revisión • {site.city}, {site.state}
             </motion.p>
 
             <motion.h1
-              {...anim(0.05)}
+              {...animInView(0.05)}
               className="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl"
             >
-              Enviar proyecto para revisión
+              Enviar proyecto para revisión técnica
             </motion.h1>
 
             <motion.p
-              {...anim(0.1)}
+              {...animInView(0.1)}
               className="mt-4 max-w-3xl text-pretty text-slate-600 md:text-lg"
             >
               Comparte el alcance y la información clave. Revisamos especificaciones y condiciones
-              para avanzar con una propuesta clara y coordinada con tu equipo.
+              para definir alcances y coordinar una propuesta con tu equipo.
             </motion.p>
           </div>
         </Container>
@@ -225,9 +225,7 @@ ${form.linkPlanos || "-"}`;
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-700">
-                    Ubicación del proyecto
-                  </label>
+                  <label className="text-xs font-semibold text-slate-700">Ubicación del proyecto</label>
                   <input
                     value={form.ubicacionProyecto}
                     onChange={(e) => onChange("ubicacionProyecto", e.target.value)}
@@ -245,9 +243,9 @@ ${form.linkPlanos || "-"}`;
                       className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-slate-200 focus:ring-2"
                     >
                       <option>Obra / Fachada</option>
-                      <option>Residencial</option>
-                      <option>Comercial</option>
                       <option>Industrial</option>
+                      <option>Comercial</option>
+                      <option>Residencial</option>
                       <option>Otro</option>
                     </select>
                   </div>
@@ -260,17 +258,15 @@ ${form.linkPlanos || "-"}`;
                       className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-slate-200 focus:ring-2"
                     >
                       <option>En planeación</option>
-                      <option>En ejecución</option>
-                      <option>Por iniciar</option>
                       <option>Licitación</option>
+                      <option>Por iniciar</option>
+                      <option>En ejecución</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-700">
-                    Planos / alcance (link)
-                  </label>
+                  <label className="text-xs font-semibold text-slate-700">Planos / alcance (link)</label>
                   <input
                     value={form.linkPlanos}
                     onChange={(e) => onChange("linkPlanos", e.target.value)}
@@ -293,7 +289,7 @@ ${form.linkPlanos || "-"}`;
                   type="submit"
                   className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
                 >
-                  Enviar por correo
+                  Enviar solicitud
                 </button>
 
                 {contactWhatsApp ? (
@@ -303,13 +299,17 @@ ${form.linkPlanos || "-"}`;
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
                   >
-                    Enviar por WhatsApp
+                    Enviar por WhatsApp (opcional)
                   </a>
                 ) : null}
 
                 <p className="text-xs text-slate-500">
                   * Este formulario abre tu app de correo (mailto). Si prefieres, envía la misma
-                  información directamente al correo de contacto.
+                  información directamente a{" "}
+                  <a className="font-medium text-slate-700 hover:text-slate-900" href={mailHref || "#"}>
+                    {contactEmail}
+                  </a>
+                  .
                 </p>
               </form>
             </motion.div>
@@ -397,9 +397,7 @@ ${form.linkPlanos || "-"}`;
               </div>
 
               <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <h3 className="text-sm font-semibold text-slate-900">
-                  Información recomendada
-                </h3>
+                <h3 className="text-sm font-semibold text-slate-900">Información recomendada</h3>
                 <ul className="mt-3 grid gap-2 text-sm text-slate-700">
                   {[
                     "Tipo de sistema y aplicación (fachada, cancelería, barandales, etc.)",

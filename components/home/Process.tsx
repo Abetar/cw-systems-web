@@ -5,9 +5,9 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 const PROCESS = [
-  { step: "01", title: "Comparte tu proyecto", desc: "Ubicación, tipo de obra, alcance y tiempos." },
-  { step: "02", title: "Revisión técnica", desc: "Alineamos especificación, sistemas y entregables." },
-  { step: "03", title: "Propuesta y seguimiento", desc: "Alcances claros y comunicación durante ejecución." },
+  { step: "01", title: "Levantamiento del alcance", desc: "Ubicación, tipo de obra, requerimientos y tiempos objetivo." },
+  { step: "02", title: "Revisión técnica", desc: "Especificación, selección de sistemas y definición de entregables." },
+  { step: "03", title: "Propuesta y seguimiento", desc: "Alcances claros, coordinación y trazabilidad durante ejecución." },
 ];
 
 export default function Process() {
@@ -30,10 +30,10 @@ export default function Process() {
             className="space-y-3"
           >
             <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-              Un flujo claro para avanzar en obra
+              Metodología de trabajo
             </h2>
             <p className="max-w-3xl text-pretty text-slate-600">
-              Menos fricción, más control: revisión técnica, alcances definidos y seguimiento.
+              Estructura de coordinación para obra y fachada: revisión técnica, alcances definidos y seguimiento.
             </p>
           </motion.div>
 
@@ -55,18 +55,26 @@ export default function Process() {
             ))}
           </div>
 
-          {/* CTA */}
+          {/* CTA (discreto, institucional) */}
           <motion.div
             initial={baseInitial}
             whileInView={baseAnimate}
             viewport={vp}
             transition={{ duration: 0.55, delay: 0.08 }}
+            className="flex flex-col gap-3 sm:flex-row sm:items-center"
           >
             <Link
               href="/contacto"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
             >
               Enviar proyecto
+            </Link>
+
+            <Link
+              href="/respaldo"
+              className="inline-flex items-center justify-center text-sm font-semibold text-slate-700 transition hover:text-slate-900"
+            >
+              Ver respaldo →
             </Link>
           </motion.div>
         </div>

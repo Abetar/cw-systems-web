@@ -7,6 +7,14 @@ import { site } from "@/config/site";
 
 const SECTORS = [
   {
+    title: "Industrial",
+    desc: "Proyectos con requisitos técnicos, condiciones operativas y entregables definidos.",
+  },
+  {
+    title: "Comercial",
+    desc: "Soluciones para espacios con necesidades de operación, durabilidad y mantenimiento.",
+  },
+  {
     title: "Constructoras",
     desc: "Soporte en especificación, alcances y coordinación para ejecución en obra.",
   },
@@ -16,15 +24,7 @@ const SECTORS = [
   },
   {
     title: "Residencial (obra)",
-    desc: "Soluciones para proyectos habitacionales con enfoque en funcionalidad y proceso.",
-  },
-  {
-    title: "Comercial",
-    desc: "Aplicaciones para espacios con necesidades de operación y durabilidad.",
-  },
-  {
-    title: "Industrial",
-    desc: "Proyectos con requisitos técnicos y condiciones operativas específicas.",
+    desc: "Aplicación en proyectos habitacionales cuando el alcance y el programa lo requieren.",
   },
 ];
 
@@ -48,11 +48,11 @@ export default function Sectors() {
             className="space-y-3"
           >
             <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
-              Sectores y perfiles que atendemos
+              Sectores y tipo de proyectos
             </h2>
             <p className="max-w-3xl text-pretty text-slate-600">
-              En {site.city} y {site.state}, trabajamos con equipos que requieren ejecución seria:
-              alcances definidos, coordinación en obra y entregables claros.
+              En {site.city} y {site.state}, colaboramos con equipos que requieren coordinación en obra,
+              alcances definidos y cumplimiento técnico.
             </p>
           </motion.div>
 
@@ -70,14 +70,16 @@ export default function Sectors() {
                 <p className="text-sm font-semibold text-slate-900">{x.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{x.desc}</p>
 
-                <p className="mt-4 text-xs text-slate-500">
-                  Proceso · Coordinación · Cumplimiento
-                </p>
+                {idx < 2 ? (
+                  <p className="mt-4 text-xs text-slate-500">
+                    Coordinación · Cumplimiento · Entregables
+                  </p>
+                ) : null}
               </motion.div>
             ))}
           </div>
 
-          {/* CTA (sobrio, institucional) */}
+          {/* CTA (discreto, institucional) */}
           <motion.div
             initial={baseInitial}
             whileInView={baseAnimate}
@@ -94,7 +96,7 @@ export default function Sectors() {
 
             <Link
               href="/contacto"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
             >
               Enviar proyecto
             </Link>
