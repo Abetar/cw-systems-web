@@ -39,12 +39,12 @@ export default function Hero() {
               transition={{ duration: 0.55 }}
               className="flex items-center gap-4"
             >
-              {/* Logo grande */}
-              <div className="grid h-20 w-20 place-items-center rounded-3xl border border-white/15 bg-white/5 md:h-24 md:w-24">
+              {/* ✅ Logo grande (CORREGIDO: llena el contenedor + recorte redondeado real) */}
+              <div className="h-20 w-20 overflow-hidden rounded-2xl bg-white md:h-24 md:w-24">
                 <img
                   src="/cws-logo.png"
                   alt={site.name}
-                  className="h-14 w-14 md:h-16 md:w-16"
+                  className="h-full w-full object-contain p-3"
                 />
               </div>
 
@@ -69,7 +69,9 @@ export default function Hero() {
               transition={{ duration: 0.55, delay: 0.06 }}
               className="mt-8 max-w-2xl text-pretty text-base leading-relaxed text-white/75"
             >
-              Soluciones en aluminio y vidrio para proyectos de obra y fachada. Enfoque técnico, coordinación en sitio y ejecución con criterios de calidad.
+              Soluciones en aluminio y vidrio para proyectos de obra y fachada.
+              Enfoque técnico, coordinación en sitio y ejecución con criterios
+              de calidad.
             </motion.p>
 
             {/* Navegación (no CTA a contacto) */}
@@ -120,7 +122,9 @@ export default function Hero() {
 
               <div className="mt-4 grid gap-3 text-sm">
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs font-semibold text-white/70">Cobertura</p>
+                  <p className="text-xs font-semibold text-white/70">
+                    Cobertura
+                  </p>
                   <p className="mt-1 font-medium text-white">
                     {site.city} · Área Metropolitana · {site.state}
                   </p>
@@ -129,21 +133,24 @@ export default function Hero() {
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                   <p className="text-xs font-semibold text-white/70">Enfoque</p>
                   <p className="mt-1 text-white/85">
-                    Obra y fachada · Coordinación en sitio · Especificación técnica
+                    Obra y fachada · Coordinación en sitio · Especificación
+                    técnica
                   </p>
                 </div>
 
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs font-semibold text-white/70">Contenido</p>
+                  <p className="text-xs font-semibold text-white/70">
+                    Contenido
+                  </p>
                   <p className="mt-1 text-white/85">
                     Capacidades · Proyectos · Proveedores
                   </p>
                 </div>
               </div>
 
-              {/* Importante: NO link a contacto aquí */}
               <p className="mt-5 text-xs text-white/50">
-                Contacto disponible únicamente en el formulario de la sección Contacto.
+                Contacto disponible únicamente en el formulario de la sección
+                Contacto.
               </p>
             </motion.div>
           </div>
